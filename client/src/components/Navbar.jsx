@@ -1,57 +1,30 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Modal, Tab, Button, Form, FormGroup } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
-const AppNavbar = () => {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+const Navbar = () => {
+    const [nav, setNav] = useState(false)
+    const handleNav = () => {
+        setNav(!nav)
+    }
 
     return (
-        <>
-            <Navbar bg='dark' variant='dark' expand='lg'>
-                <Container fluid>
-                    <Navbar.Brand as={Link} to='/'>
-                        devHub
-                    </Navbar.Brand>
-                    <Nav className='ml-auto'>
-                        <Button variant='primary' onClick={handleShow}>
-                            Login/Signup
-                        </Button>
-                    </Nav>
-                </Container>
-            </Navbar>
+        <div className='flex flex-col h-screen justify-between'>
+            <nav className='flex items-center justify-between h-16 lg:h-20 bg-[#223]/30 rounded-b-3xl shadow-lg px-4'>
+                <div className='container mx-auto flex justify-between items-center'>
+                    <h1 className='text-white text-xl sm:text-2xl transition-all duration-200 hover:scale-110'>
+                        <NavLink to='/' className='font-bold'>devHub</NavLink>
+                    </h1>
+                </div>
+            </nav>
+            <div className='flex flex-grow justify-center items-center mt-10'>
+                <LoginForm />
+                <SignupForm />
+            </div>
+        </div>
 
-            <Modal show={show} onHide={handleClose}>
-                <Tab.Container id="left-tabs-example" defaultActiveKey="login">
-                    <Nav variant="pills">
-                        <Nav.Item>
-                            <Nav.Link eventKey="login">Login</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="signup">Sign Up</Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-                    <Tab.Content>
-                        <Tab.Pane eventKey="login">
-                            <LoginForm />
-                        </Tab.Pane>
-
-                        <Tab.Pane eventKey="signup">
-                            <SignupForm />
-                        </Tab.Pane>
-                    </Tab.Content>
-
-
-                </Tab.Container>
-
-            </Modal>
-
-        </>
     );
 };
 
-export default AppNavbar
+export default Navbar
