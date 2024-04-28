@@ -10,16 +10,16 @@ const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/3 p-4 bg-red-500 rounded shadow" >
-            <h2 className='text-center font-bold mb-4'>Login</h2>
+        <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/3 h-1/2 p-4 bg-red-500 rounded shadow" >
+            <h2 className='text-center font-bold mb-6 text-3xl'>Login</h2>
             <div className="mb-2">
-                <label className="block">Email address</label>
+                <label className="block text-xl">Email Address</label>
                 <input type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} 
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
             </div>
 
             <div className="mb-2">
-                <label className="block">Password</label>
+                <label className="block text-xl">Password</label>
                 <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} 
                 className="mt-1 block w-full rounded-md border-r-gray-300 shadow-sm" />
             </div>
