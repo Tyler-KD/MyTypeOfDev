@@ -3,11 +3,14 @@ import App from '../App.jsx';
 
 const HomePage = () => {
     return (
-        <div>
-           
-            <App />
-            
-        </div>
+        <App >
+            <div>
+
+
+
+            </div>
+        </App>
+
     )
 }
 
