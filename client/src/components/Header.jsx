@@ -9,10 +9,7 @@ const Header = () => {
 
             <Navbar />
 
-            <div className='flex flex-grow h-screen justify-center items-center'>
-                <LoginForm />
-                <SignupForm />
-            </div>
+
 
         </header>
     )
