@@ -13,7 +13,8 @@ module.exports = {
             console.error(error);
         }
     },
-    // get a single user by either their id or their username
+
+    // Get a single user by either their id or their username
     async getUser({ params: { username } }, res) {
         try {
             const user = await User.findOne({ username }).populate('posts');
@@ -37,13 +38,14 @@ module.exports = {
     // Fetches a specific post by its ID.
     async getPost({ params: { postId } }, res) {
         try {
-            const post = await Post.findOne({ _id: context.user._id }).populate('posts');
+            const post = await Post.findOne({ _id: postId })
             res.json(post);
         } catch (error) {
             console.error(error);
         }
     },
-    // fetches the currently authenticated user and their associated posts.
+
+    // Fetches the currently authenticated user and their associated posts.
     async getMe({ user }, res) {
         try {
             if (user) {
@@ -57,7 +59,7 @@ module.exports = {
         }
     },
 
-    // creates a new user in the database with the data provided in the request body.
+    // Creates a new user in the database with the data provided in the request body.
     async addUser({ body }, res) {
         try {
             const user = await User.create({ body });
@@ -68,7 +70,7 @@ module.exports = {
         }
     },
 
-    // login a user, sign a token, and send it back to (client/src/components/LoginForm.jsx)
+    // Login a user, sign a token, and send it back to (client/src/components/LoginForm.jsx)
     // {body} is destructured req.body
     async login({ body }, res) {
         try {
@@ -87,8 +89,8 @@ module.exports = {
         }
     },
 
-    //add a post to a user's 'addPosts' field by adding it to the set (to prevent duplicates)
-    //user comes from `req.user` created in the auth middleware functtion
+    // Add a post to a user's 'posts' field by adding it to the set (to prevent duplicates)
+    // user comes from `req.user` created in the auth middleware functtion
     async addPost({ user, body: { postText } }, res) {        
         try {
             if (user) {
@@ -109,7 +111,7 @@ module.exports = {
         }
     },
 
-    // adds a new comment to a specific post. 
+    // Adds a new comment to a specific post. 
     async addComment({ user, body: { commentText }, params: { postId } }, res) {
         try {
             if (user) {
@@ -125,7 +127,7 @@ module.exports = {
                         runValidators: true,
                     }
                 );
-                res.json(uupdatedPost);
+                res.json(updatedPost);
             } else {
                 throw new AuthenticationError();
             }
@@ -134,7 +136,7 @@ module.exports = {
         }
     },
 
-    //deletes a specific post by its ID and the username of the currently authenticated user.
+    // Deletes a specific post by its ID and the username of the currently authenticated user.
     async removePost({ user, params: { postId } }, res) {
         try {
             if (user) {
@@ -155,7 +157,7 @@ module.exports = {
         }
     },
 
-    // removes a specific comment from a specific post.
+    // Removes a specific comment from a specific post.
     async removeComment({ user, params: { postId, commentId } }, res) {
         try {
             if (user) {
