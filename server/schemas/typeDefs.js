@@ -9,6 +9,19 @@ const typeDefs = `
     posts: [Post]
   }
 
+  type Profile {
+    _id: ID
+    aboutMe: String
+    image: String
+    posts: [Post]
+  }
+
+  type Card {
+    _id: ID
+    url: String
+    image: String
+  }
+
   type Post {
     _id: ID
     postText: String
@@ -39,7 +52,9 @@ const typeDefs = `
 
   type Mutation {
     addUser(firstName: String, lastName: String, username: String!, email: String!, password: String!): Auth
+    addProfile(aboutMe: String, image: String): Auth
     login(email: String!, password: String!): Auth
+    addCard(url: String!, image: String!): Card
     addPost(postText: String!): Post
     addComment(commentId: ID!, commentText: String!): Post
     removePost(postId: ID!): Post
