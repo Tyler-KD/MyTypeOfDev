@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -10,7 +10,7 @@ const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/3 h-1/2 p-4 bg-red-500 rounded shadow" >
+        <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/3 h-1/2 p-2 bg-blue-500 rounded-3xl border-2" >
             <h2 className='text-center font-bold mb-6 text-3xl'>Login</h2>
             <div className="mb-2">
                 <label className="block text-xl">Email Address</label>
