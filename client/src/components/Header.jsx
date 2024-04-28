@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 const Header = () => {
     return (
         <header className="sm:px-4 mx-auto max-w-[1600px]">
+
             <Navbar />
         </header>
     )
