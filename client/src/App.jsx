@@ -1,7 +1,9 @@
-import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Header from './components/Header'
+import Footer from './components/Footer'
+
+import { Routes } from "react-router-dom";
 
 import './index.css'
 
@@ -49,6 +51,17 @@ function App() {
           {/* The Outlet component is a placeholder that renders the matched route's component */}
           <Outlet />
         </Header>
+
+        <main>
+          <Routes>
+       
+          </Routes>
+        </main>
+        
+        <Footer>
+
+        </Footer>
+
       </>
     </ApolloProvider>
   );
