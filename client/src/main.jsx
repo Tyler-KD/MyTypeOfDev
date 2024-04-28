@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom/dist'
+import CreateProfile from './pages/CreateProfile.jsx'
 
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       }, {
         path: '/profilepage',
         element: <ProfilePage />
+      },
+      {
+        path: '/createprofile',
+        element: <CreateProfile />
       }
     ]
   }
