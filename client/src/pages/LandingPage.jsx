@@ -1,18 +1,15 @@
 // LandingPage.js
-import LoginForm from '../components/LoginForm';
-import Footer from '../components/Footer';
-import SignupForm from '../components/SignupForm';
-import Navbar from '../components/Navbar';
+import LoginForm from '../components/LoginForm.jsx';
+import SignupForm from '../components/SignupForm.jsx';
 
 const LandingPage = () => {
     return (
+        
         <div className='flex flex-col justify-between'>
-            <Navbar />
             <div className='flex flex-grow h-screen justify-center items-center'>
                 <LoginForm />
                 <SignupForm />
             </div>
-            <Footer />
         </div>
 
     );

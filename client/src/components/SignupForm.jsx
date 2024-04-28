@@ -33,6 +33,8 @@ const SignupForm = () => {
             });
             console.log(data);
             Auth.login(data.addUser.token);
+
+            window.location.href = '/profilepage';
         } catch (e) {
             console.error(e);
         }
@@ -40,10 +42,9 @@ const SignupForm = () => {
     return (
         <>
             {data ? (
-                <div>
-                    <p>success</p>
-                    <Link to='/'>homepage link</Link>
-                </div>
+                <p>success {' '}
+                    <Link to='/profilepage'>homepage</Link>
+                </p>
             ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/3 h-1/2 p-2 bg-blue-500 rounded-3xl border-2 ms-36">
                     <h2 className='text-center font-bold mb-6 text-3xl'>Sign Up</h2>

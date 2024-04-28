@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import LandingPage from './pages/LandingPage'
 
 import { Routes } from "react-router-dom";
 
@@ -46,22 +47,12 @@ function App() {
     // ApolloProvider wraps the application and places the client on the context, which allows access to it from anywhere in the component tree.
     <ApolloProvider client={client}>
       <>
-        <Header>
-          <Navbar />
-          {/* The Outlet component is a placeholder that renders the matched route's component */}
-          <Outlet />
-        </Header>
+        <Header />
 
-        <main>
-          <Routes>            
-       
-          </Routes>
-        </main>
-        
-        <Footer>
+        {/* The Outlet component is a placeholder that renders the matched route's component */}
+        <Outlet />
 
-        </Footer>
-
+        <Footer />
       </>
     </ApolloProvider>
   );
