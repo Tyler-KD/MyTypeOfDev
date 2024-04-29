@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 class AuthService {
     // get user data
     getProfile() {
+        // console.log(jwtDecode(this.getToken));
         return jwtDecode(this.getToken());
     }
 
@@ -30,7 +31,8 @@ class AuthService {
 
     getToken() {
         // Retrieves the user token from localStorage
-        return localStorage.getItem('id_token');
+        const token = localStorage.getItem('id_token');
+        return typeof token === 'string' ? token : '';
     }
 
     login(idToken) {

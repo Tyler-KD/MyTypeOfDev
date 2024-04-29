@@ -34,7 +34,7 @@ const SignupForm = () => {
             console.log(data);
             Auth.login(data.addUser.token);
 
-            window.location.href = '/profilepage';
+            window.location.href = '/createprofile';
         } catch (e) {
             console.error(e);
         }
@@ -43,7 +43,7 @@ const SignupForm = () => {
         <>
             {data ? (
                 <p>success {' '}
-                    <Link to='/profilepage'>homepage</Link>
+                    <Link to='/createprofile'></Link>
                 </p>
             ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/3 h-1/2 p-2 bg-blue-500 rounded-3xl border-2 ms-36">
