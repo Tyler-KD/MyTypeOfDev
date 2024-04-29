@@ -12,10 +12,10 @@ const resolvers = {
     },
     posts: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Thought.find(params).sort({ createdAt: -1 });
+      return Post.find(params).sort({ createdAt: -1 });
     },
-    post: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+    post: async (parent, { postId }) => {
+      return Post.findOne({ _id: postId });
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -50,6 +50,8 @@ const resolvers = {
     },
     addPost: async (parent, { postText }, context) => {
       if (context.user) {
+        const postAuthor = context.user.username; // Define postAuthor
+        
         const post = await Post.create({
           postText,
           postAuthor,

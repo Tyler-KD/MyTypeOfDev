@@ -25,4 +25,21 @@ export const GET_ME = gql`
       }
     }
   }
-` 
+`;
+
+export const GET_ALL_POSTS = gql`
+query posts {
+  posts {
+    _id
+    postText
+    postAuthor
+    createdAt
+    comments {
+      _id
+      commentText
+      commentAuthor
+      createdAt
+    }
+  }
+}
+`;

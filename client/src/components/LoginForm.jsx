@@ -34,7 +34,7 @@ const LoginForm = (props) => {
             console.log(data);
             Auth.login(data.login.token);
 
-            window.location.href = '/homepage';
+            window.location.href = '/home';
         } catch (e) {
             console.error(e);
         }
@@ -44,7 +44,7 @@ const LoginForm = (props) => {
         <>
             {data ? (
                 <p>success {' '}
-                    <Link to='/homepage'>homepage link</Link>
+                    <Link to='/home'></Link>
                 </p>
             ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/3 h-1/2 p-2 bg-blue-500 rounded-3xl border-2" >
