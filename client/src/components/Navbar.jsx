@@ -19,13 +19,13 @@ const Navbar = () => {
                     {Auth.loggedIn() ? (
                         <>
                             <h1 className='text-white text-xl lg:text-2xl transition-all duration-200 hover:scale-110'>
-                                <NavLink to='/homepage' className='font-bold'>
+                                <NavLink to='/home' className='font-bold'>
                                     <img className='h-auto w-[200px]' src={image1} />
                                 </NavLink>
                             </h1>
                             <ul className='text-white font-medium hidden lg:flex lg:items-center lg:justify-center lg:space-x-10 text-2xl'>
-                                <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/homepage" activeclassname="selected">Home</NavLink></li>
-                                <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/profilepage" activeclassname="selected">Profile</NavLink></li>
+                                <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/home" activeclassname="selected">Home</NavLink></li>
+                                <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/profile" activeclassname="selected">Profile</NavLink></li>
                                 <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink onClick={handleLogout} activeclassname="selected">Logout</NavLink></li>
                             </ul>
                         </>
