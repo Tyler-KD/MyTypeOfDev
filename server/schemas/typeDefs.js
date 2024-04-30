@@ -3,6 +3,8 @@ const typeDefs = `
     _id: ID
     firstName: String
     lastName: String
+    about: String
+    image: String
     username: String
     email: String
     password: String
@@ -44,6 +46,7 @@ const typeDefs = `
     addComment(commentId: ID!, commentText: String!): Post
     removePost(postId: ID!): Post
     removeComment(postId: ID!, commentId: ID!): Post
+    updateProfile(about: String!, image: String!, firstName: String!, lastName: String!): User
   }
 `;
 

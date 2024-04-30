@@ -30,6 +30,17 @@ export const ADD_USER = gql`
   }
 `;
 
+export const UPDATE_PROFILE = gql`
+mutation UpdateProfile($about: String!, $image: String!, $firstName: String!, $lastName: String!) {
+  updateProfile(about: $about, image: $image, firstName: $firstName, lastName: $lastName) {
+    about
+    image
+    firstName
+    lastName
+  }
+}
+`;
+
 // Add a post to a user's saved posts.
 // postText as input parameter.
 // If the post is successfully created, it returns the post's details (postText, postAuthor, createdAt) and a list of saved comments.

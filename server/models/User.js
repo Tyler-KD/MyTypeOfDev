@@ -3,13 +3,21 @@ const bcrypt = require('bcrypt');
 
 // schema to create user model
 const userSchema = new Schema({
+  about: {
+    type: String,
+    required: false,
+  },
+  image: {
+    type: String,
+    required: false,
+  },
   firstName: {
     type: String,
-    // required: true,
+    required: false,
   },
   lastName: {
     type: String,
-    // required: true,
+    required: false,
   },
   username: {
     type: String,
