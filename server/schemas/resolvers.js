@@ -1,5 +1,6 @@
 
 const { User, Post } = require('../models');
+const UserService = require('../services/UserService');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -48,10 +49,43 @@ const resolvers = {
 
       return { token, user };
     },
+    updateProfile: async (_, { about, image, firstName, lastName }, context) => {
+
+      const userId = context.user.id;
+
+      // Create an update object with only the fields that are not undefined
+      const update = {};
+      if (about !== undefined) {
+        update.about = about;
+      }
+      if (image !== undefined) {
+        update.image = image;
+      }
+      if (firstName !== undefined) {
+        update.firstName = firstName;
+      }
+      if (lastName !== undefined) {
+        update.lastName = lastName;
+      }
+
+      const updatedUser = await UserService.updateUser(userId, update);
+      if (!updatedUser) {
+        throw new Error('User not found');
+      }
+
+      console.log('Updated User:', updatedUser);
+      
+      return {
+        about: updatedUser.about,
+        image: updatedUser.image,
+        firstName: updatedUser.firstName,
+        lastName: updatedUser.lastName,
+      }
+    },
     addPost: async (parent, { postText }, context) => {
       if (context.user) {
         const postAuthor = context.user.username; // Define postAuthor
-        
+
         const post = await Post.create({
           postText,
           postAuthor,
