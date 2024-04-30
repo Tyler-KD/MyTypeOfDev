@@ -22,16 +22,16 @@ const LandingPage = () => {
                 <SignupForm />
             </div>
 
-            <div className='flex items-center bg-slate-900 border-y-2 mt-16'> 
+            <div className='flex bg-slate-900 border-t-2 mt-16'> 
                 
-                <img src={Tyler1} alt="Tyler"/>
-                <img src={Ella1} alt="Ella"/>
-                <img src={Brandon1} alt="Brandon"/>
-                <img src={Julian1} alt="Julian"/>
-                <img src={Yash1} alt="Yashraj"/>
+                <img src={Tyler1} alt="Tyler" className='hover:animate-bounce'/>
+                <img src={Ella1} alt="Ella" className='hover:animate-bounce'/>
+                <img src={Brandon1} alt="Brandon" className='hover:animate-bounce'/>
+                <img src={Julian1} alt="Julian" className='hover:animate-bounce'/>
+                <img src={Yash1} alt="Yashraj" className='hover:animate-bounce'/>
                 
             </div>
-            <div className='flex-col items-center space-x-72 text-center text-4xl'>
+            <div className='flex-col items-center space-x-72 bg-slate-800 text-center text-4xl border-y-4 py-1'>
             <p1>Tyler</p1>
             <p1>Ella</p1>
             <p1>Brandon</p1>
