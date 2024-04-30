@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations.js';
 import { GET_ALL_POSTS } from '../utils/queries.js';
@@ -60,7 +60,7 @@ const HomePage = () => {
     if (error) return <p>Error : </p>;
 
     return(
-        <div className='p-4'>
+        <div className='p-4 bg-blue-500'>
             <textarea 
             value={postText} 
             onChange={(e) => setPostText(e.target.value)}

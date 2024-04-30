@@ -14,9 +14,15 @@ const LandingPage = () => {
   
 
 
-        <div className='flex'>
+        <div className='flex-column mt-16 '>
             
-            <div className=''> 
+      
+            <div className='flex h-96 justify-center items-center  '>
+                <LoginForm />
+                <SignupForm />
+            </div>
+
+            <div className='flex items-center bg-slate-900 border-y-2 mt-16'> 
                 
                 <img src={Tyler1} alt="Tyler"/>
                 <img src={Ella1} alt="Ella"/>
@@ -25,9 +31,12 @@ const LandingPage = () => {
                 <img src={Yash1} alt="Yashraj"/>
                 
             </div>
-            <div className='flex flex-grow h-screen justify-center items-center'>
-                <LoginForm />
-                <SignupForm />
+            <div className='flex-col items-center space-x-72 text-center text-4xl'>
+            <p1>Tyler</p1>
+            <p1>Ella</p1>
+            <p1>Brandon</p1>
+            <p1>Julian</p1>
+            <p1>Yash</p1>
             </div>
         </div>
 

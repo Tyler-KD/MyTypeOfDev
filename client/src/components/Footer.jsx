@@ -5,7 +5,7 @@
 const Footer = () => {
     
     return (
-        <footer className="text-center text-2xl">
+        <footer className="text-center text-2xl fixed-bottom items-center">
             <section>
                 <p className="copyright-text">devHub &copy; {new Date().getFullYear()} </p>
             </section>

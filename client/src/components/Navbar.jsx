@@ -1,6 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
 import image1 from '../assets/dev-Hub_1 copy.png';
 import Auth from '../utils/auth';
 

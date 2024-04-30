@@ -47,8 +47,8 @@ const LoginForm = (props) => {
                     <Link to='/home'></Link>
                 </p>
             ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/3 h-1/2 p-2 bg-blue-500 rounded-3xl border-2" >
-                    <h2 className='text-center font-bold mb-6 text-3xl'>Login</h2>
+                <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/4 h-full p-2 bg-blue-500 rounded-3xl border-2" >
+                    <h2 className='text-center font-bold mb-6 mt-6 text-3xl'>Login</h2>
                     <div className="mb-2">
                         <label className="block text-xl">Email Address</label>
                         <input type="email" name="email" placeholder="Enter email" value={formState.email} onChange={handleChange}
