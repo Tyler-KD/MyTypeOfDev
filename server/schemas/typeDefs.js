@@ -11,13 +11,6 @@ const typeDefs = `
     posts: [Post]
   }
 
-  type Profile {
-    _id: ID
-    aboutMe: String
-    image: String
-    posts: [Post]
-  }
-
   type Card {
     _id: ID
     url: String

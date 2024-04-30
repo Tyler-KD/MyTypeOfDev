@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useApolloClient, useMutation } from "@apollo/client";
 import { NavLink } from "react-router-dom";
-import { GET_ME } from "../utils/queries";
 import { UPDATE_PROFILE } from "../utils/mutations";
+import { GET_ME } from "../utils/queries";
 
 const CreateProfile = () => {
     const [about, setAbout] = useState('');
@@ -39,7 +39,7 @@ const CreateProfile = () => {
         setImage(URL.createObjectURL(e.target.files[0]));
     };
 
-    const [updatedProfile] = useMutation(UPDATE_PROFILE, {
+    const [updateProfile] = useMutation(UPDATE_PROFILE, {
         refetchQueries: [{ query: GET_ME }],
     });
 
@@ -47,7 +47,7 @@ const CreateProfile = () => {
         e.preventDefault();
 
         try {            
-            await updatedProfile({ variables: { about, image, firstName, lastName } });
+            await updateProfile({ variables: { about, image, firstName, lastName } });
             console.log({ about, image, firstName, lastName })
         } catch (err) {            
             console.error(err);
