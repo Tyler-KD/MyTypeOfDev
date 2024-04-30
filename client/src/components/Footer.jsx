@@ -5,9 +5,9 @@
 const Footer = () => {
     
     return (
-        <footer className="text-center text-2xl">
+        <footer className="flex text-2xl text-center justify-center">
             <section>
-                <p className="copyright-text">devHub &copy; {new Date().getFullYear()} </p>
+                <p className="copyright-text w-52 bg-white">devHub &copy; {new Date().getFullYear()} </p>
             </section>
            
         </footer>

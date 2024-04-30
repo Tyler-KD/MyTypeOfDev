@@ -46,8 +46,8 @@ const SignupForm = () => {
                     <Link to='/createprofile'></Link>
                 </p>
             ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/3 h-1/2 p-2 bg-blue-500 rounded-3xl border-2 ms-36">
-                    <h2 className='text-center font-bold mb-6 text-3xl'>Sign Up</h2>
+                <form onSubmit={handleSubmit} className="flex flex-col items-center w-1/4 h-full p-2 bg-blue-500 rounded-3xl border-2 ms-36">
+                    <h2 className='text-center font-bold mb-6 mt-6 text-3xl'>Sign Up</h2>
                     <div className="mb-2">
                         <label className="block text-xl">Username</label>
                         <input type="text" name="username" placeholder="Enter username" value={formState.username} onChange={handleChange}
