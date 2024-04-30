@@ -12,7 +12,8 @@ export const GET_ME = gql`
       lastName
       email
       username
-      password
+      about
+      image
       posts {
         postText
         postAuthor
