@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations.js';
 import { GET_ALL_POSTS } from '../utils/queries.js';
@@ -61,13 +61,13 @@ const HomePage = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : </p>;
 
-    return (
-        <div className='p-4'>
-            <textarea
-                value={postText}
-                onChange={(e) => setPostText(e.target.value)}
-                placeholder="Write your post here..."
-                className="w-full p-2 border border-gray-300 rounded-md"
+    return(
+        <div className='p-4 bg-blue-500'>
+            <textarea 
+            value={postText} 
+            onChange={(e) => setPostText(e.target.value)}
+            placeholder="Write your post here..." 
+            className="w-full p-2 border border-gray-300 rounded-md"
             />
 
             <button onClick={handleAddPost} className='mt-2 px-4 py-2 bg-blue-500 text-white rounded-md'>

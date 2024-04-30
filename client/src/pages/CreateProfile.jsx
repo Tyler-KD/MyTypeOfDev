@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useApolloClient, useMutation } from "@apollo/client";
-import { NavLink } from "react-router-dom";
 import { GET_ME } from "../utils/queries";
 import { UPDATE_PROFILE } from "../utils/mutations";
 
@@ -62,7 +61,8 @@ const CreateProfile = () => {
     if (error) return <p>Error :</p>;
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
+  
+            <div className="flex flex-col items-center justify-center min-h-screen">
             <h1 className="text-4xl font-bold mb-8">Create your Profile</h1>
             {isSubmitted ? (
                 <p>Success! {' '}
