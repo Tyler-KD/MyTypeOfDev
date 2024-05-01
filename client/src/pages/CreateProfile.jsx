@@ -41,7 +41,7 @@ const CreateProfile = () => {
         setImage(e.target.value);
     };
 
-    const [updatedProfile] = useMutation(UPDATE_PROFILE, {
+    const [updateProfile] = useMutation(UPDATE_PROFILE, {
         refetchQueries: [{ query: GET_ME }],
     });
 
@@ -49,7 +49,7 @@ const CreateProfile = () => {
         e.preventDefault();
 
         try {            
-            await updatedProfile({ variables: { about, image, firstName, lastName } });
+            await updateProfile({ variables: { about, image, firstName, lastName } });
             console.log({ about, image, firstName, lastName })
             setisSubmitted(true);
         } catch (err) {            

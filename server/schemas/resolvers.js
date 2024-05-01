@@ -2,6 +2,7 @@
 const { User, Post } = require('../models');
 const UserService = require('../services/UserService');
 const { signToken, AuthenticationError } = require('../utils/auth');
+const formatTimestamp = require('../utils/dateFormat');
 
 const resolvers = {
   Query: {
@@ -13,7 +14,7 @@ const resolvers = {
     },
     posts: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Post.find(params).sort({ createdAt: -1 });
+      return Post.find(params).sort({ createdAt: 1 });
     },
     post: async (parent, { postId }) => {
       return Post.findOne({ _id: postId });

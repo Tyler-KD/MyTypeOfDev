@@ -19,8 +19,16 @@ export const LOGIN_USER = gql`
 // username, email, and password as input parameters.
 // If the user is successfully created, it returns a token and the new user's details (ID and username).
 export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
+  mutation addUser(
+    $username: String! 
+    $email: String!
+    $password: String!
+  ) {
+    addUser(
+      username: $username 
+      email: $email 
+      password: $password
+    ) {
       token
       user {
         _id
@@ -31,8 +39,18 @@ export const ADD_USER = gql`
 `;
 
 export const UPDATE_PROFILE = gql`
-mutation UpdateProfile($about: String!, $image: String!, $firstName: String!, $lastName: String!) {
-  updateProfile(about: $about, image: $image, firstName: $firstName, lastName: $lastName) {
+mutation UpdateProfile(
+  $about: String!
+  $image: String! 
+  $firstName: String!
+  $lastName: String!
+) {
+  updateProfile(
+    about: $about
+    image: $image 
+    firstName: $firstName 
+    lastName: $lastName
+  ) {
     about
     image
     firstName
