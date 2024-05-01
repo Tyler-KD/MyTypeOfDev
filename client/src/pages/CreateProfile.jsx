@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery, useApolloClient, useMutation } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
 import { UPDATE_PROFILE } from "../utils/mutations";
+import { NavLink } from  "react-router-dom";
 
 const CreateProfile = () => {
     const [about, setAbout] = useState('');
