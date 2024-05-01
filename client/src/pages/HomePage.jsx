@@ -42,6 +42,7 @@ const HomePage = () => {
                 if (user && user.username) {
                     const postAuthor = user.username;
                     const image = await user.image; // get the URL from the user's profile
+                    
 
                     await addPost({ variables: { postText, postAuthor, image } });
                     setPostText('');
@@ -79,6 +80,7 @@ const HomePage = () => {
                     <div key={post._id} className='mt-4 p-4 border border-gray-300 rounded-md'>
                         <h2 className='text-xl font-bold'>{post.postText}</h2>
                         <p className='mt-2 text-white'>Posted by: {post.postAuthor}</p>
+                        <p className='mt-2 text-white'>Posted on: {post.createdAt}</p>
                         {post.image && <img src={post.image} alt="Post" />} {/* Display the image if it exists */}
                         {/* Map through comments if they exist */}
                         {post.comments && post.comments.map((comment) => (
