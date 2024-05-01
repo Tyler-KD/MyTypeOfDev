@@ -52,19 +52,19 @@ const SignupForm = () => {
                     <div className="mb-2">
                         <label className="block text-xl">Username</label>
                         <input type="text" name="username" placeholder="Enter username" value={formState.username} onChange={handleChange}
-                            className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm" />
+                            className="mt-1 block w-full rounded-md text-black border-4 border-gray-600 shadow-2xl" />
                     </div>
 
                     <div className="mb-2">
                         <label className="block text-xl">Email Address</label>
                         <input type="email" name="email" placeholder="Enter email" value={formState.email} onChange={handleChange}
-                            className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm" />
+                            className="mt-1 block w-full rounded-md text-black border-4 border-gray-600 shadow-2xl" />
                     </div>
 
                     <div className="mb-2">
                         <label className="block text-xl">Password</label>
                         <input type="password" name="password" placeholder="Password" value={formState.password} onChange={handleChange}
-                            className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm" />
+                            className="mt-1 block w-full rounded-md text-black border-4 border-gray-600 shadow-2xl" />
                     </div>
                     <button type="submit" className="mt-2 px-4 py-2 border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 
                     hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:scale-125 ease-in-out">
