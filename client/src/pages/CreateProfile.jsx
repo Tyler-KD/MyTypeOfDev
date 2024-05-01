@@ -19,6 +19,9 @@ const CreateProfile = () => {
             setAbout(data.me.username || '');
             setFirstName(data.me.firstName || '');
             setLastName(data.me.lastName || '');
+            if (!image) {
+                setImage(data.me.image || '');
+            }
         }
     }, [loading, error, data]);
 
@@ -65,8 +68,11 @@ const CreateProfile = () => {
   
             <div className="flex flex-col items-center justify-center min-h-screen">
 
-            <h1 className="text-4xl font-bold mb-8 bg-blue-500">Create your Profile</h1>
-            
+            {firstName && lastName && about && image ? (
+                <h1 className="text-4xl font-bold mb-8 bg-blue-500">Edit your Profile</h1>
+            ) : (
+                <h1 className="text-4xl font-bold mb-8 bg-blue-500">Create your Profile</h1>
+            )}            
             {isSubmitted ? (
                 <p>Success! {' '}
                 <NavLink to="/profile">Go to Profile</NavLink>

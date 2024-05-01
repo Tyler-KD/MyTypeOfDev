@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from "@apollo/client";
 import { GET_ME } from '../utils/queries';
+import { Link } from 'react-router-dom';
 
 
 const ProfilePage = () => {
@@ -20,7 +21,11 @@ const ProfilePage = () => {
                 {data.me.image && <img className='mt-4 rounded' src={data.me.image} alt='Profile' />}
 
             </div>
-            
+            <Link to='/createprofile'>
+                <button className='bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
+                    Edit Profile
+                </button>
+            </Link>
         </div>
     )
 };
