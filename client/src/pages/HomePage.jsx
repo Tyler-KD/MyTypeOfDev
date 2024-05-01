@@ -75,13 +75,13 @@ const HomePage = () => {
                 Add Post
             </button>
 
-            {data.posts.map((post) => {
+            {data.posts.slice().reverse().map((post) => {
                 return (
                     <div key={post._id} className='mt-4 p-4 border border-gray-300 rounded-md'>
                         <h2 className='text-xl font-bold'>{post.postText}</h2>
                         <p className='mt-2 text-white'>Posted by: {post.postAuthor}</p>
                         <p className='mt-2 text-white'>Posted on: {post.createdAt}</p>
-                        {post.image && <img src={post.image} alt="Post" />} {/* Display the image if it exists */}
+                        {post.image && <img className="w-16 md:w-32 lg:w-38" src={post.image} alt="Post" />} {/* Display the image if it exists */}
                         {/* Map through comments if they exist */}
                         {post.comments && post.comments.map((comment) => (
                             <div key={comment._id} className='mt-2 p-2 border border-gray-200 rounded-md'>

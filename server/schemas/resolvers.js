@@ -14,7 +14,7 @@ const resolvers = {
     },
     posts: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Post.find(params).sort({ createdAt: -1 });
+      return Post.find(params).sort({ createdAt: 1 });
     },
     post: async (parent, { postId }) => {
       return Post.findOne({ _id: postId });
@@ -74,8 +74,7 @@ const resolvers = {
         const newPost = await Post.create({
           postText: args.postText,
           postAuthor: context.user.username,
-          image: userImage,
-          createdAt: formatTimestamp
+          image: userImage
         });
 
         await User.findOneAndUpdate(
