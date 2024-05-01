@@ -45,7 +45,7 @@ const typeDefs = `
     addProfile(aboutMe: String, image: String): Auth
     login(email: String!, password: String!): Auth
     addPost(postText: String!, image: String): Post
-    addComment(commentId: ID!, commentText: String!): Post
+    addComment(postId: ID!, commentText: String!): Post
     removePost(postId: ID!): Post
     removeComment(postId: ID!, commentId: ID!): Post
     updateProfile(about: String!, image: String!, firstName: String!, lastName: String!): User
