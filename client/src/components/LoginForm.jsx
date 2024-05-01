@@ -56,13 +56,13 @@ const LoginForm = (props) => {
                             <div className="mb-2">
                                 <label className="block text-xl">Email Address</label>
                                 <input type="email" name="email" placeholder="Enter email" value={formState.email} onChange={handleChange} 
-                                className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm" />
+                                className="mt-1 block w-full rounded-md text-black border-4 border-gray-600 shadow-2xl" />
                             </div>
 
                         <div className="mb-2">
                             <label className="block text-xl">Password</label>
                             <input type="password" name="password" placeholder="Password" value={formState.password} onChange={handleChange}
-                            className="mt-1 block w-full rounded-md text-black border-r-gray-300 shadow-sm" />
+                            className="mt-1 block w-full rounded-md text-black border-4 border-gray-600 shadow-2xl" />
                         </div>
 
                         <button type="submit" className="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600
