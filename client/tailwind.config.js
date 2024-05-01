@@ -22,7 +22,7 @@ module.exports = {
         "slidein2": "slideinR .8s linear",
         "popin1": "popin .6s linear",
 
-        gradient: "gradient 15s linear infinite",
+        gradient: "gradient 18s linear infinite",
 
     },
 
