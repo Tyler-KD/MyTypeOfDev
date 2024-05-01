@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery, useApolloClient, useMutation } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
 import { UPDATE_PROFILE } from "../utils/mutations";
+import { NavLink } from  "react-router-dom";
 
 const CreateProfile = () => {
     const [about, setAbout] = useState('');
@@ -10,6 +11,8 @@ const CreateProfile = () => {
     const [lastName, setLastName] = useState('');
     const { loading, error, data } = useQuery(GET_ME);
     const client = useApolloClient();
+
+    const [isSubmitted, setisSubmitted] = useState(false);
 
     useEffect(() => {
         if (!loading && !error && data) {
@@ -35,7 +38,7 @@ const CreateProfile = () => {
     };
 
     const handleImageUpload = (e) => {
-        setImage(URL.createObjectURL(e.target.files[0]));
+        setImage(e.target.value);
     };
 
     const [updatedProfile] = useMutation(UPDATE_PROFILE, {
@@ -48,8 +51,10 @@ const CreateProfile = () => {
         try {            
             await updatedProfile({ variables: { about, image, firstName, lastName } });
             console.log({ about, image, firstName, lastName })
+            setisSubmitted(true);
         } catch (err) {            
             console.error(err);
+            setisSubmitted(false);
         }
     };
 
@@ -59,8 +64,17 @@ const CreateProfile = () => {
     return (
   
             <div className="flex flex-col items-center justify-center min-h-screen">
+
             <h1 className="text-4xl font-bold mb-8 bg-blue-500">Create your Profile</h1>
             <form className="w-full max-w-sm bg-blue-500" onSubmit={handleSubmit}>
+            <h1 className="text-4xl font-bold mb-8">Create your Profile</h1>
+            {isSubmitted ? (
+                <p>Success! {' '}
+                <NavLink to="/profile">Go to Profile</NavLink>
+                </p>
+            ) : (
+            <form className="w-full max-w-sm" onSubmit={handleSubmit}>
+
                 <label className="block mb-4">
                     <span className="text-gray-700">First Name:</span>
                     <input className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
@@ -81,17 +95,19 @@ const CreateProfile = () => {
                         onChange={handleAboutChange} />
                 </label>
                 <label className="block mb-4">
-                    <span className="text-gray-700">Upload Picture:</span>
+                    <span className="text-gray-700">Image URL:</span>
                     <input className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
-                        type="file"
-                        onChange={handleImageUpload} />
+                        type="text"
+                        value={image}
+                        onChange={handleImageUpload}
+                        placeholder="Enter image URL"
+                        />
                 </label>
-                {image && <img className="mt-4 rounded" src={image} alt="Profile Preview" />}
-                
+                {image && <img className="mt-4 rounded" src={image} alt="Profile Preview" />}                
                     <button type="submit" className="mt-4 px-4 py-2 rounded text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
-                        Submit</button>
-                
+                        Submit</button>                
             </form>
+            )}
         </div>
     );
 };

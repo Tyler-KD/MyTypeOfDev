@@ -27,11 +27,13 @@ const resolvers = {
   },
 
   Mutation: {
+
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -49,57 +51,42 @@ const resolvers = {
 
       return { token, user };
     },
-    updateProfile: async (_, { about, image, firstName, lastName }, context) => {
 
-      const userId = context.user.id;
-
-      // Create an update object with only the fields that are not undefined
-      const update = {};
-      if (about !== undefined) {
-        update.about = about;
+    updateProfile: async (parent, args, context) => {
+      if(context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $set: { about: args.about, image: args.image, firstName: args.firstName, lastName: args.lastName } },
+          {new: true}
+        );
+        return updatedUser;
       }
-      if (image !== undefined) {
-        update.image = image;
-      }
-      if (firstName !== undefined) {
-        update.firstName = firstName;
-      }
-      if (lastName !== undefined) {
-        update.lastName = lastName;
-      }
-
-      const updatedUser = await UserService.updateUser(userId, update);
-      if (!updatedUser) {
-        throw new Error('User not found');
-      }
-
-      console.log('Updated User:', updatedUser);
-      
-      return {
-        about: updatedUser.about,
-        image: updatedUser.image,
-        firstName: updatedUser.firstName,
-        lastName: updatedUser.lastName,
-      }
+        throw new AuthenticationError('You need to be logged in!');
     },
-    addPost: async (parent, { postText }, context) => {
-      if (context.user) {
-        const postAuthor = context.user.username; // Define postAuthor
 
-        const post = await Post.create({
-          postText,
-          postAuthor,
+    addPost: async (parent, args, context) => {
+      if (context.user) {        
+        // Fetch the user's image from the User model
+        const user = await User.findOne({ _id: context.user._id });
+        const userImage = user.image;
+        
+        const newPost = await Post.create({
+          postText: args.postText,
+          postAuthor: context.user.username,
+          image: userImage
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { posts: post._id } }
+          { $push: { posts: newPost._id } },
+          { new: true }
         );
 
-        return post;
+        return newPost;
       }
-      throw AuthenticationError;
+      throw new AuthenticationError('You need to be logged in!');
     },
+
     addComment: async (parent, { postId, commentText }, context) => {
       if (context.user) {
         return Post.findOneAndUpdate(
@@ -117,6 +104,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+
     removePost: async (parent, { postId }, context) => {
       if (context.user) {
         const post = await Post.findOneAndDelete({
@@ -133,7 +121,8 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removeComment: async (parent, { postId, commentId }, context) => {
+
+    removeComment: async (parent, { postId, commentId }, context) => {      
       if (context.user) {
         return Post.findOneAndUpdate(
           { _id: postId },

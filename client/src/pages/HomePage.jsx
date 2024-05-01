@@ -8,6 +8,7 @@ import Auth from '../utils/auth.js';
 const HomePage = () => {
     // useState hook used to manage the state of the text input for adding a new post.
     const [postText, setPostText] = useState('');
+
     // useMutation hook used to execute the ADD_POST mutation
     const [addPost] = useMutation(ADD_POST, {
         // update function used to manually update the Apollo Client cache after the mutation is executed.
@@ -23,7 +24,7 @@ const HomePage = () => {
                 // Write our data back to the cache.
                 cache.writeQuery({ query: GET_ALL_POSTS, data: newPosts });
             } catch (e) {
-                console.lerror(e);
+                console.error(e);
             }
         },
     });
@@ -35,13 +36,14 @@ const HomePage = () => {
     const handleAddPost = async () => {
         try {
             if (Auth.loggedIn()) {
-                const { data: user } = Auth.getProfile();
-                console.log(user);
+                const { data: user } = Auth.getProfile();                
+                console.log(user);                
 
                 if (user && user.username) {
                     const postAuthor = user.username;
+                    const image = await user.image; // get the URL from the user's profile
 
-                    await addPost({ variables: { postText, postAuthor } });
+                    await addPost({ variables: { postText, postAuthor, image } });
                     setPostText('');
                 } else {
                     console.error('User or username is undefined');
@@ -67,23 +69,27 @@ const HomePage = () => {
             placeholder="Write your post here..." 
             className="w-full p-2 border border-gray-300 rounded-md"
             />
+
             <button onClick={handleAddPost} className='mt-2 px-4 py-2 bg-blue-500 text-white rounded-md'>
                 Add Post
             </button>
 
-            {data.posts.map((post) => (
-                <div key={post._id} className='mt-4 p-4 border border-gray-300 rounded-md'>
-                    <h2 className='text-xl font-bold'>{post.postText}</h2>
-                    <p className='mt-2 text-gray-500'>Posted by: {post.postAuthor}</p>
-                    {/* Map through comments if they exist */}
-                    {post.comments && post.comments.map((comment) => (
-                        <div key={comment._id} className='mt-2 p-2 border border-gray-200 rounded-md'>
-                            <p>{comment.commentText}</p>
-                            <p className='mt-1 text-sm text-gray-500'>Comment by: {comment.commentAuthor}</p>
-                        </div>
-                    ))}
-                </div>
-            ))}
+            {data.posts.map((post) => {
+                return (
+                    <div key={post._id} className='mt-4 p-4 border border-gray-300 rounded-md'>
+                        <h2 className='text-xl font-bold'>{post.postText}</h2>
+                        <p className='mt-2 text-white'>Posted by: {post.postAuthor}</p>
+                        {post.image && <img src={post.image} alt="Post" />} {/* Display the image if it exists */}
+                        {/* Map through comments if they exist */}
+                        {post.comments && post.comments.map((comment) => (
+                            <div key={comment._id} className='mt-2 p-2 border border-gray-200 rounded-md'>
+                                <p>{comment.commentText}</p>
+                                <p className='mt-1 text-sm text-white'>Comment by: {comment.commentAuthor}</p>
+                            </div>
+                        ))}
+                    </div>
+                );
+            })}
         </div>
     );
 };

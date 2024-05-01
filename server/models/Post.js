@@ -19,6 +19,10 @@ const postSchema = new Schema({
     default: Date.now,
     get: formatTimestamp,
   },
+  image: {
+    type: String,
+    trim: true,
+  },
   comments: [
     {
       commentText: {
