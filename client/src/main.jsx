@@ -7,6 +7,7 @@ import ProfilePage from './pages/ProfilePage.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom/dist'
 import CreateProfile from './pages/CreateProfile.jsx'
+import SinglePost from './pages/SinglePost.jsx'
 
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/createprofile',
         element: <CreateProfile />
+      },
+      {
+        path: '/post/:postId',
+        element: <SinglePost />
       }
     ]
   }

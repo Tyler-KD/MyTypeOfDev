@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations.js';
 import { GET_ALL_POSTS } from '../utils/queries.js';
 import Auth from '../utils/auth.js';
+import { Link } from 'react-router-dom';
 
 // HomePage allows users to add new posts and view all existing posts along with their comments.
 const HomePage = () => {
@@ -77,22 +78,16 @@ const HomePage = () => {
 
             {data.posts.slice().reverse().map((post) => {
                 return (
+                    <Link key={post._id} to={`/post/${post._id}`}>
                     <div key={post._id} className='mt-4 p-4 border border-gray-300 rounded-md'>
                         <div className='flex p-3'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />} {/* Display the image if it exists */}
-                        {/* Map through comments if they exist */}
                         <div className='flex-initial w-20 pl-2 mt-2 text-white font-bold'><p>{post.postAuthor} posted:</p></div>
                         </div>
                         <div className='flex'><h2 className='text-xl font-bold '>{post.postText}</h2></div>
                         
                         <p className='mt-2 text-white'>Posted on: {post.createdAt}</p>
-                        
-                        {post.comments && post.comments.map((comment) => (
-                            <div key={comment._id} className='mt-2 p-2 border border-gray-200 rounded-md'>
-                                <p>{comment.commentText}</p>
-                                <p className='mt-1 text-sm text-white'>Comment by: {comment.commentAuthor}</p>
-                            </div>
-                        ))}
                     </div>
+                    </Link>
                 );
             })}
         </div>
