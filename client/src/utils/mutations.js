@@ -63,12 +63,13 @@ mutation UpdateProfile(
 // postText as input parameter.
 // If the post is successfully created, it returns the post's details (postText, postAuthor, createdAt) and a list of saved comments.
 export const ADD_POST = gql`
-  mutation addPost($postText: String!) {
-    addPost(postText: $postText) {
+  mutation addPost($postText: String!, $image: String) {
+    addPost(postText: $postText, image: $image) {
       _id
       postText
       postAuthor
       createdAt
+      image
       comments {
         _id
         commentText

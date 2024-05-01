@@ -35,6 +35,7 @@ query posts {
     postText
     postAuthor
     createdAt
+    image
     comments {
       _id
       commentText
