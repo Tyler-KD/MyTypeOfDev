@@ -59,8 +59,8 @@ const CreateProfile = () => {
     return (
   
             <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-4xl font-bold mb-8">Create your Profile</h1>
-            <form className="w-full max-w-sm" onSubmit={handleSubmit}>
+            <h1 className="text-4xl font-bold mb-8 bg-blue-500">Create your Profile</h1>
+            <form className="w-full max-w-sm bg-blue-500" onSubmit={handleSubmit}>
                 <label className="block mb-4">
                     <span className="text-gray-700">First Name:</span>
                     <input className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"

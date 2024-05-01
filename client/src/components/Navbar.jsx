@@ -12,11 +12,11 @@ const Navbar = () => {
     return (
         <div className='flex flex-col justify-between'>
             <nav className='flex items-center justify-between bg-black rounded-b-3xl shadow-lg px-4'>
-                <div className='container mx-auto flex justify-between items-center'>
+                <div className='container mx-auto flex justify-between items-center '>
                     {/* If user is logged in, show the Home, Profile, and Logout navigation links */}
                     {Auth.loggedIn() ? (
                         <>
-                            <h1 className='text-white text-xl lg:text-2xl transition-all duration-200 hover:scale-110'>
+                            <h1 className='text-white text-xl lg:text-2xl transition-all duration-200 hover:scale-110 animate-slidein1'>
                                 <NavLink to='/home' className='font-bold'>
                                     <img className='h-auto w-[200px]' src={image1} />
                                 </NavLink>
@@ -29,7 +29,7 @@ const Navbar = () => {
                         </>
                     ) : (
                         // If user is logged out, only show the devHub landingpage link
-                        <h1 className='text-white text-xl lg:text-2xl transition-all duration-200 hover:scale-110'>
+                        <h1 className='text-white text-xl lg:text-2xl transition-all duration-200 hover:scale-110 animate-slidein1'>
                             <NavLink to='/' className='font-bold'>
                                 <img className='h-auto w-[200px]' src={image1} />
                             </NavLink>
