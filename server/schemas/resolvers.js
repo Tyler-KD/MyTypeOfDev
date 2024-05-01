@@ -2,6 +2,7 @@
 const { User, Post } = require('../models');
 const UserService = require('../services/UserService');
 const { signToken, AuthenticationError } = require('../utils/auth');
+const formatTimestamp = require('../utils/dateFormat');
 
 const resolvers = {
   Query: {
@@ -73,7 +74,8 @@ const resolvers = {
         const newPost = await Post.create({
           postText: args.postText,
           postAuthor: context.user.username,
-          image: userImage
+          image: userImage,
+          createdAt: formatTimestamp
         });
 
         await User.findOneAndUpdate(
