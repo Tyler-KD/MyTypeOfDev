@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations.js';
-import { GET_ALL_POSTS } from '../utils/queries.js';
+import { GET_ALL_POSTS, GET_ME } from '../utils/queries.js';
+
 import Auth from '../utils/auth.js';
 
 // HomePage allows users to add new posts and view all existing posts along with their comments.
@@ -30,6 +31,7 @@ const HomePage = () => {
     });
 
     const { loading, error, data } = useQuery(GET_ALL_POSTS);
+    //const { me } = useQuery({ query: GET_ME});
     // This function is executed when the "Add Post" button is clicked.
     // It checks if the user is logged in and if the username exists.
     // If so, it executes the addPost mutation with the text input and username as variables.
@@ -62,12 +64,17 @@ const HomePage = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : </p>;
 
+
+
     return(
         <div className='p-4 bg-blue-500'>
+            {/* <div className='flex p-3'>{ me.me.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={ me.me.image } alt="Post" />}</div> */}
+
             <textarea 
+            
             value={postText} 
             onChange={(e) => setPostText(e.target.value)}
-            placeholder="Write your post here..." 
+            placeholder="Hows it going?" 
             className="w-full p-2 border border-gray-300 rounded-md"
             />
 
