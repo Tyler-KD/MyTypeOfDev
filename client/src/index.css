@@ -2,3 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.animated-background {
+    background: linear-gradient(
+        to right, 
+        rgb(198, 151, 231), 
+        rgb(76, 76, 224), 
+        rgb(50, 50, 192),
+        rgb(240, 184, 184), 
+        rgb(209, 109, 126), 
+        rgb(194, 72, 93),
+        rgb(198, 151, 231)
+      
+        
+        );
+    
+
+    background-size: 300% 300%;
+
+
+    
+}
+
+

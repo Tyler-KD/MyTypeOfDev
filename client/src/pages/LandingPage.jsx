@@ -14,24 +14,24 @@ const LandingPage = () => {
   
 
 
-        <div className='flex-column mt-16 '>
+        <div className='flex-column mt-16'>
             
       
-            <div className='flex h-96 justify-center items-center  '>
+            <div className='flex h-96 justify-center items-center'>
                 <LoginForm />
                 <SignupForm />
             </div>
 
             <div className='flex bg-slate-900 border-t-2 mt-16'> 
                 
-                <img src={Tyler1} alt="Tyler" className='hover:animate-bounce'/>
-                <img src={Ella1} alt="Ella" className='hover:animate-bounce'/>
-                <img src={Brandon1} alt="Brandon" className='hover:animate-bounce'/>
-                <img src={Julian1} alt="Julian" className='hover:animate-bounce'/>
-                <img src={Yash1} alt="Yashraj" className='hover:animate-bounce'/>
+                <img src={Tyler1} alt="Tyler" className='animate-bounce2'/>
+                <img src={Ella1} alt="Ella" className='animate-bounce4'/>
+                <img src={Brandon1} alt="Brandon" className='animate-bounce3'/>
+                <img src={Julian1} alt="Julian" className='animate-bounce4'/>
+                <img src={Yash1} alt="Yashraj" className='animate-bounce2'/>
                 
             </div>
-            <div className='flex-col items-center space-x-72 bg-slate-800 text-center text-4xl border-y-4 py-1'>
+            <div className='flex-col items-center space-x-72 bg-black text-white text-center text-4xl border-y-4 py-1'>
             <p1>Tyler</p1>
             <p1>Ella</p1>
             <p1>Brandon</p1>
