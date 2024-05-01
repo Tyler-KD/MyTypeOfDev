@@ -71,18 +71,21 @@ const HomePage = () => {
             className="w-full p-2 border border-gray-300 rounded-md"
             />
 
-            <button onClick={handleAddPost} className='mt-2 px-4 py-2 bg-blue-500 text-white rounded-md'>
+            <button onClick={handleAddPost} className='transition ease-in-out delay-150 mt-2 px-4 py-2 bg-blue-800 text-white rounded-md hover:-translate-y-1 hover:scale-100 hover:bg-indigo-500 duration-300'>
                 Add Post
             </button>
 
             {data.posts.slice().reverse().map((post) => {
                 return (
                     <div key={post._id} className='mt-4 p-4 border border-gray-300 rounded-md'>
-                        <h2 className='text-xl font-bold'>{post.postText}</h2>
-                        <p className='mt-2 text-white'>Posted by: {post.postAuthor}</p>
-                        <p className='mt-2 text-white'>Posted on: {post.createdAt}</p>
-                        {post.image && <img className="w-16 md:w-32 lg:w-38" src={post.image} alt="Post" />} {/* Display the image if it exists */}
+                        <div className='flex p-3'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />} {/* Display the image if it exists */}
                         {/* Map through comments if they exist */}
+                        <div className='flex-initial w-20 pl-2 mt-2 text-white font-bold'><p>{post.postAuthor} posted:</p></div>
+                        </div>
+                        <div className='flex'><h2 className='text-xl font-bold '>{post.postText}</h2></div>
+                        
+                        <p className='mt-2 text-white'>Posted on: {post.createdAt}</p>
+                        
                         {post.comments && post.comments.map((comment) => (
                             <div key={comment._id} className='mt-2 p-2 border border-gray-200 rounded-md'>
                                 <p>{comment.commentText}</p>
