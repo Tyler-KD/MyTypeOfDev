@@ -21,7 +21,7 @@ module.exports = {
         "slidein1": "slidein .4s linear",
         "slidein2": "slideinR .4s linear",
 
-        gradient: "gradient 20s linear infinite"
+        gradient: "gradient 15s linear infinite"
 
     },
 
