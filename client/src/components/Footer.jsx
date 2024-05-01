@@ -10,7 +10,7 @@ import Tyler1 from '../assets/PEOPLE/Tyler1.png';
 const Footer = () => {
     
     return (
-        <footer className="flex-col text-2xl text-center fixed bottom-0 left-0 right-0">
+        <footer className="flex-col text-2xl text-center 2xl:fixed bottom-0 left-0 right-0">
 
             <div className='flex flex-col 2xl:flex-row items-center bg-slate-900 border-t-2 mt-16'> 
                 
