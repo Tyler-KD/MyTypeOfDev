@@ -50,7 +50,7 @@ const LoginForm = (props) => {
             ) : (
 
                     <form id="dropDown" onSubmit={handleSubmit} className="flex flex-col items-center text-white w-1/4 h-full p-2 rounded-3xl border-2 animate-dropin1" >
-                        <div className="flex flex-col items-center animate-gradient animated-background w-full h-full rounded-3xl border-white border-4">
+                        <div className="flex flex-col items-center animate-gradient animated-background2 w-full h-full rounded-3xl border-white border-4">
 
                         <h2 className='text-center font-bold mb-6 mt-6 text-3xl'>Login</h2>
                             <div className="mb-2">
