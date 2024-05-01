@@ -66,8 +66,7 @@ const CreateProfile = () => {
             <div className="flex flex-col items-center justify-center min-h-screen">
 
             <h1 className="text-4xl font-bold mb-8 bg-blue-500">Create your Profile</h1>
-            <form className="w-full max-w-sm bg-blue-500" onSubmit={handleSubmit}>
-            <h1 className="text-4xl font-bold mb-8">Create your Profile</h1>
+            
             {isSubmitted ? (
                 <p>Success! {' '}
                 <NavLink to="/profile">Go to Profile</NavLink>
