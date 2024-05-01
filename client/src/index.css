@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body { background-image: url('/src/assets/BG/Floral1.jpg') }
+body { background-image: url('/src/assets/BG/Blossom2.jpg');
+        background-size: cover;   }
 
 .animated-background {
     background: linear-gradient(
@@ -83,10 +84,6 @@ body { background-image: url('/src/assets/BG/Floral1.jpg') }
         rgb(32, 3, 65),
         rgb(47, 4, 78),
         rgb(29, 10, 73)
-        
-        
-      
-        
         );
     
 
