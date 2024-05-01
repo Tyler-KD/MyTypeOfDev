@@ -45,3 +45,21 @@ query posts {
   }
 }
 `;
+
+export const GET_POST_BY_ID = gql`
+  query post($postId: ID!) {
+    post(postId: $postId) {
+      _id
+      postAuthor
+      postText
+      image
+      createdAt
+      comments {
+        _id
+        commentText
+        commentAuthor
+        createdAt
+      }
+    }
+  }
+`;
