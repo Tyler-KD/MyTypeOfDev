@@ -1,8 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import image1 from '../assets/dev-Hub_1 copy.png';
 import Auth from '../utils/auth';
+import React, { useState } from 'react';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
 const Navbar = () => {
+
+    const [nav, setNav] = useState(false)
+    const handleNav = () => {
+        setNav(!nav)
+    }
 
     // function to handle logging out
     const handleLogout = () => {
@@ -37,12 +44,42 @@ const Navbar = () => {
                     )}
 
                 </div>
+
+                {/* On small screen, dropdown menu will be shown */}
+                {/* On medium screen and above, it will be hidden */}
+                <section onClick={handleNav} className='block md:hidden text-white z-40 cursor-pointer'>
+                    {/* Ternary operator: If nav is true, then the AiOutlineClose icon will display */}
+                    {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+
+                    <section className={nav ? 'z-30 text-gray-300 fixed left-0 top-0 w-full bg-[#202121] ease-in-out duration-500'
+                        : 'fixed left-[-100%]'}>
+                        {/* If user is logged in, show the Home, Profile, and Logout navigation links */}
+                        {Auth.loggedIn() ? (
+                            <>
+                                <h2 className='text-3xl gray-primary-color m-4'>
+                                    <NavLink to='/home' className='font-bold'>
+                                        <img className='h-auto w-[200px]' src={image1} />
+                                    </NavLink>
+                                </h2>
+                                <ul className='p-8 text-4xl ml-20'>
+                                    <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/home" activeclassname="selected">Home</NavLink></li>
+                                    <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/profile" activeclassname="selected">Profile</NavLink></li>
+                                    <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink onClick={handleLogout} activeclassname="selected">Logout</NavLink></li>
+                                </ul>
+                            </>
+                        ) : (
+                            // If user is logged out, only show the devHub landingpage link
+                                <h2 className='text-3xl gray-primary-color m-4'>
+                                    <NavLink to='/' className='font-bold'>
+                                        <img className='h-auto w-[200px]' src={image1} />
+                                    </NavLink>
+                                </h2>
+                        )};
+                    </section>
+                </section>
             </nav>
-
-
         </div>
-
     );
 };
 
-export default Navbar
+export default Navbar;
