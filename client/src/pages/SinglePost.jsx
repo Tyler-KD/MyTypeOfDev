@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_POST_BY_ID } from '../utils/queries';
+import { GET_POST_BY_ID, GET_USER_BY_USERNAME } from '../utils/queries';
 import { useMutation } from '@apollo/client';
 import { ADD_COMMENT, REMOVE_POST, REMOVE_COMMENT } from '../utils/mutations';
 import Auth from '../utils/auth.js';
@@ -9,8 +9,14 @@ import Auth from '../utils/auth.js';
 
 const SinglePostPage = () => {
     const { postId } = useParams();
-    const { loading, error, data } = useQuery(GET_POST_BY_ID, {
+    const { loading: postLoading, error: postError, data: postData } = useQuery(GET_POST_BY_ID, {
         variables: { postId }
+    });
+
+    const postAuthorUsername = postData?.post?.postAuthor;
+
+    const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER_BY_USERNAME, {
+        variables: { username: postAuthorUsername },
     });
 
     const [commentText, setCommentText] = useState('');
@@ -67,10 +73,11 @@ const SinglePostPage = () => {
         }
     };
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
+    if (postLoading || userLoading) return <p>Loading...</p>;
+    if (postError) return <p>Error: {postError.message}</p>;
+    if (userError) return <p>Error: {userError.message}</p>;
 
-    const post = data.post;
+    const post = postData.post;
     // console.log(data.post);
     // console.log(post.comments);
 
@@ -78,7 +85,7 @@ const SinglePostPage = () => {
         <div className="p-4 flex flex-col items-center">
             <div className="flex flex-col w-1/2 bg-orange-500 bg-opacity-90 text-center items-center pb-4 font-serif rounded-xl">
                 <div className="flex items-center mb-4">
-                    <img src={post.image} alt="Post" className="w-16 h-16 rounded-full mr-4" />
+                    <img src={userData?.user?.image} alt="Post" className="w-16 h-16 rounded-full mr-4" />
                     <div>
                         <h1 className="text-xl font-bold">{post.postAuthor}</h1>
                         <p className="text-gray-600">{post.createdAt}</p>
