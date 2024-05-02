@@ -104,36 +104,50 @@ console.log(data);
 
                             <div className='flex flex-col  w-full mt-12 p-2 border-2 border-gray-900 rounded-md'>
                                 <div key={post._id} to={`/post/${post._id}`} className='flex flex-col items-center'>
-                                    <div className='flex flex-col w-full items-center border-2 border-gray-900 rounded-md bg-orange-500 bg-opacity-80'>
+                                    
+                                    <div className='flex flex-col w-full border-2 border-gray-900 rounded-md bg-orange-500 bg-opacity-90'>
 
                                         <Link to={`/profile/${post._id}`}>
-                                            <div className='flex p-3'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />} </div>
+                                            <div className='flex'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />} </div>
                                         </Link>
                                         {/* Display the image if it exists */}
                                         {/* Map through comments if they exist */}
-                                        <div className='flex-initial w-20 pl-2 mt-2 text-white font-bold'><p>{post.postAuthor} posted:</p></div>
+
+
+                                        <div><p className='text-black font-bold text-3xl ml-2'>{post.postAuthor}<span className='text-black text-xl'>:</span></p></div>
 
 
                                         <Link to={`/post/${post._id}`}>
                                             <div className='flex'>
-                                                <h2 className='text-xl font-bold'>{post.postText}</h2>
+                                                <h2 className='text-2xl ml-2 mt-3'>{post.postText}</h2>
                                             </div>
                                         </Link>
                                         
-                                            <p className='mt-2 py-1 text-white'>Posted on: {post.createdAt}</p>
+                                            <p className='mt-5 mx-2 text-white text-end'>Posted on, {post.createdAt}</p>
 
-                                        
-                                            
-                                            <div className='flex flex-row'>
+                                            <div className='flex flex-row text-xl '>
+
+
+                                                    <span className='ml-2'>{post.comments.length}</span>
+                                                    {post.comments && (<button className='ml-1'><TfiComment/></button>)}
+
+                                                   
+                                                    <span className='likes ml-5'>0 likes</span>
+                                                    <button className='likes ml-1'><VscHeart/></button>
                                                  
-                                                 <span className='pr-1'>{post.comments.length}</span>
-                                                 {post.comments && (<button><TfiComment/></button>)}
+                                                 
+                                                 
                                             </div>
                                             
-                                       <button class= 'likes'><VscHeart/></button>
-                                       <span class= 'likes'>0 likes</span>
+                                      
+                                            
+                                     
                                     
                                     </div>
+
+                                    
+                                                    
+
                                 </div>
                             </div>
                         </div>
