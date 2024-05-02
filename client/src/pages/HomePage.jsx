@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations.js';
 import { GET_ALL_POSTS } from '../utils/queries.js';
+import { TfiComment } from "react-icons/tfi";
+import { VscHeart } from "react-icons/vsc";
 import Auth from '../utils/auth.js';
 import { Link } from 'react-router-dom';
 
@@ -31,6 +33,7 @@ const HomePage = () => {
     });
 
     const { loading, error, data } = useQuery(GET_ALL_POSTS);
+    //const { me } = useQuery({ query: GET_ME});
     // This function is executed when the "Add Post" button is clicked.
     // It checks if the user is logged in and if the username exists.
     // If so, it executes the addPost mutation with the text input and username as variables.
@@ -63,6 +66,8 @@ const HomePage = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : </p>;
 
+
+
 console.log(data);
     return (
         <div className='p-4'>
@@ -84,9 +89,6 @@ console.log(data);
                     </div>
 
                 </div>
-
-
-
             </div>
 
 
@@ -114,29 +116,30 @@ console.log(data);
 
                                         <Link to={`/post/${post._id}`}>
                                             <div className='flex'>
-                                                <h2 className='text-xl font-bold '>{post.postText}</h2>
+                                                <h2 className='text-xl font-bold'>{post.postText}</h2>
                                             </div>
                                         </Link>
-                                        <div>
-                                            <p className='mt-2 text-white'>Posted on: {post.createdAt}</p>
+                                        
+                                            <p className='mt-2 py-1 text-white'>Posted on: {post.createdAt}</p>
 
-                                            {post.comments && (
-                                                <div className='mt-2 p-2 border border-gray-200 rounded-md'>
-                                                    <p>{post.comments.length} Comments</p>
-                                                </div>
-                                            )}
-                                        </div>
-
+                                        
+                                            
+                                            <div className='flex flex-row'>
+                                                 
+                                                 <span className='pr-1'>{post.comments.length}</span>
+                                                 {post.comments && (<button><TfiComment/></button>)}
+                                            </div>
+                                            
+                                       <button class= 'likes'><VscHeart/></button>
+                                       <span class= 'likes'>0 likes</span>
+                                    
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     );
-                })}
+                })}       
             </div>
-
         </div>
     );
 };

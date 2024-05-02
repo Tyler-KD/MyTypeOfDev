@@ -16,6 +16,7 @@ const typeDefs = `
     postText: String
     postAuthor: String
     createdAt: String
+    
     comments: [Comment]!
     image: String
   }
