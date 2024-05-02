@@ -22,6 +22,7 @@ const SinglePostPage = () => {
 
     const [addComment] = useMutation(ADD_COMMENT);
     const [removePost] = useMutation(REMOVE_POST);
+    const [removeComment] = useMutation(REMOVE_COMMENT);
 
     const handleCommentSubmit = async () => {
         try {
@@ -57,6 +58,15 @@ const SinglePostPage = () => {
         }
     };
 
+    const handleRemoveComment = async (commentId) => {
+        try {
+            console.log(commentId);
+            await removeComment({ variables: { postId, commentId } });
+        } catch (error) {
+            console.error('Error removing comment:', error);
+        }
+    };
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
@@ -81,6 +91,14 @@ const SinglePostPage = () => {
                     <div key={comment._id} className="border border-gray-300 rounded-md p-4 mb-4">
                         <p className="text-gray-700">{comment.commentText}</p>
                         <p className="text-sm text-gray-500 mt-2">Comment by: {comment.commentAuthor}</p>
+                        {Auth.loggedIn() && Auth.getProfile().data.username === comment.commentAuthor && (
+                            <button
+                                onClick={() => handleRemoveComment(comment._id)} // Pass in comment._id
+                                className="mt-2 px-4 py-2 bg-red-800 text-white rounded-md hover:bg-red-500"
+                            >
+                                Remove Comment
+                            </button>
+                        )}
                     </div>
                 ))}
                 {showCommentForm ? (
