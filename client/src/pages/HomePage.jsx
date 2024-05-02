@@ -1,16 +1,19 @@
-import { useState } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
+import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useApolloClient } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations.js';
-import { GET_ALL_POSTS } from '../utils/queries.js';
+import { GET_ALL_POSTS, GET_ME, GET_USER_BY_USERNAME } from '../utils/queries.js';
 import { TfiComment } from "react-icons/tfi";
 import { VscHeart } from "react-icons/vsc";
 import Auth from '../utils/auth.js';
 import { Link } from 'react-router-dom';
 
+
 // HomePage allows users to add new posts and view all existing posts along with their comments.
 const HomePage = () => {
+    const client = useApolloClient();
     // useState hook used to manage the state of the text input for adding a new post.
     const [postText, setPostText] = useState('');
+    const [posts, setPosts ] = useState([]);
 
     // useMutation hook used to execute the ADD_POST mutation
     const [addPost] = useMutation(ADD_POST, {
@@ -33,6 +36,21 @@ const HomePage = () => {
     });
 
     const { loading, error, data } = useQuery(GET_ALL_POSTS);
+
+    // useEffect hook runs whenever the data changes (i.e., whenever the GET_USER_BY_USERNAME query finishes loading)
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const updatedPosts = await Promise.all(data.posts.map(async post => {
+                const { data: userData } = await client.query({ query: GET_USER_BY_USERNAME, variables: { username: post.postAuthor} });
+                return { ...post, image: userData.user.image };
+            }))
+            setPosts(updatedPosts);
+        };
+        if (data && data.posts) {
+            fetchPosts();
+        }
+    }, [data, client]);
+
     //const { me } = useQuery({ query: GET_ME});
     // This function is executed when the "Add Post" button is clicked.
     // It checks if the user is logged in and if the username exists.
@@ -40,12 +58,13 @@ const HomePage = () => {
     const handleAddPost = async () => {
         try {
             if (Auth.loggedIn()) {
-                const { data: user } = Auth.getProfile();
+                const { data: userData } = await client.query({ query: GET_ME });
+                const user = userData.me;
                 console.log(user);
 
                 if (user && user.username) {
                     const postAuthor = user.username;
-                    const image = await user.image; // get the URL from the user's profile
+                    const image = user.image; // get the URL from the user's profile
 
 
                     await addPost({ variables: { postText, postAuthor, image } });
@@ -96,7 +115,7 @@ console.log(data);
 
 
             <div className='flex flex-col items-center justify-center'>
-                {data.posts.slice().reverse().map((post) => {
+                {posts.slice().reverse().map((post) => {
                     return (
 
                         <div key={post._id} className='w-1/2 flex-col items-center'>

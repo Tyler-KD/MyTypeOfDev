@@ -29,7 +29,7 @@ const SinglePostPage = () => {
             <p><strong>First Name:</strong> {userData?.user?.firstName}</p>
             <p><strong>Last Name:</strong> {userData?.user?.lastName}</p>
             <p><strong>About Me:</strong> {userData?.user?.about}</p>
-            {postData?.post?.image && <img className='mt-4 rounded' src={postData?.post?.image} alt='Profile' />}
+            {userData?.user?.image && <img className='mt-4 rounded' src={userData?.user?.image} alt='Profile' />}
             <div className="mt-4">
                 <h2 className="text-xl font-bold mb-2">Recent Posts</h2>
                 {userData?.user?.posts.slice().reverse().map((post, index) => (
