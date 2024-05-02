@@ -63,6 +63,7 @@ const HomePage = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : </p>;
 
+console.log(data);
     return (
         <div className='p-4'>
             <div className='flex flex-col items-center p-4 bg-slate-800 bg-opacity-50 rounded-full'>
@@ -100,21 +101,22 @@ const HomePage = () => {
 
 
                             <div className='flex flex-col  w-full mt-12 p-2 border-2 border-gray-900 rounded-md'>
-                                <Link key={post._id} to={`/post/${post._id}`} className='flex flex-col items-center'>
+                                <div key={post._id} to={`/post/${post._id}`} className='flex flex-col items-center'>
                                     <div className='flex flex-col w-full items-center border-2 border-gray-900 rounded-md bg-orange-500 bg-opacity-80'>
 
+                                        <Link to={`/profile/${post._id}`}>
+                                            <div className='flex p-3'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />} </div>
+                                        </Link>
+                                        {/* Display the image if it exists */}
+                                        {/* Map through comments if they exist */}
+                                        <div className='flex-initial w-20 pl-2 mt-2 text-white font-bold'><p>{post.postAuthor} posted:</p></div>
 
-                                        <div className='flex p-3'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />}
-                                            {/* Display the image if it exists */}
-                                            {/* Map through comments if they exist */}
-                                            <div className='flex-initial w-20 pl-2 mt-2 text-white font-bold'><p>{post.postAuthor} posted:</p></div>
 
-                                        </div>
-
-                                        <div className='flex'>
-                                            <h2 className='text-xl font-bold '>{post.postText}</h2>
-                                        </div>
-
+                                        <Link to={`/post/${post._id}`}>
+                                            <div className='flex'>
+                                                <h2 className='text-xl font-bold '>{post.postText}</h2>
+                                            </div>
+                                        </Link>
                                         <div>
                                             <p className='mt-2 text-white'>Posted on: {post.createdAt}</p>
 
@@ -126,7 +128,7 @@ const HomePage = () => {
                                         </div>
 
                                     </div>
-                                </Link>
+                                </div>
                             </div>
 
 

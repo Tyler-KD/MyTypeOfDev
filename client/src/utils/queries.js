@@ -63,3 +63,26 @@ export const GET_POST_BY_ID = gql`
     }
   }
 `;
+
+export const GET_USER_BY_USERNAME = gql`
+query user($username: String!) {
+  user(username: $username) {
+    _id
+      firstName
+      lastName
+      email
+      username
+      about
+      image
+      posts {
+        postText
+        postAuthor
+        createdAt
+        comments {
+          commentText
+          commentAuthor
+          createdAt
+        }
+      }
+  }
+}`
