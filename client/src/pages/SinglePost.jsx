@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_POST_BY_ID } from '../utils/queries';
@@ -75,8 +75,8 @@ const SinglePostPage = () => {
     // console.log(post.comments);
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="bg-white rounded-lg shadow-md p-8">
+        <div className="p-4 flex flex-col items-center">
+            <div className="flex flex-col w-1/2 bg-orange-500 bg-opacity-90 text-center items-center pb-4 font-serif rounded-xl">
                 <div className="flex items-center mb-4">
                     <img src={post.image} alt="Post" className="w-16 h-16 rounded-full mr-4" />
                     <div>

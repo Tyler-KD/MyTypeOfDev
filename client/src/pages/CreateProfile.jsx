@@ -66,42 +66,46 @@ const CreateProfile = () => {
 
     return (
 
-        <div className="flex flex-col items-center bg-blue-500 ">
+        <div className="flex flex-col items-center  ">
 
             {firstName && lastName && about && image ? (
-                <h1 className="text-4xl font-bold mb-8 bg-blue-500">Edit your Profile</h1>
+                <h1 className="text-7xl bg-orange-500 bg-opacity-80 w-1/3 text-center font-serif rounded-t-xl mt-10 animate-dropin1">Bio</h1>
             ) : (
-                <h1 className="text-4xl font-bold mb-8 bg-blue-500">Create your Profile</h1>
+                <h1 className="text-7xl bg-orange-500 bg-opacity-80 w-1/3 text-center font-serif rounded-t-xl mt-10 animate-dropin1">Bio</h1>
             )}
             {isSubmitted ? (
-                <p>Success! {' '}
-                    <NavLink to="/profile">Go to Profile</NavLink>
-                </p>
-            ) : (
-                <form className="w-full max-w-sm" onSubmit={handleSubmit}>
+                <div className="bg-green-800 bg-opacity-95 w-1/3 text-center text-4xl text-black font-serif mt-10 rounded-xl border-4 border-green-950 mb-40 hover:scale-125">Success! {' '}
+                    
+                    <div className="animate-pulse text-6xl font-bold text-green-400">
+                        <NavLink to="/profile">Go to Profile</NavLink>
+                    </div>
+                </div>
 
-                    <label className="block mb-4">
-                        <span className="text-gray-700">First Name:</span>
-                        <input className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
+            ) : (
+                <form className="w-1/3 bg-orange-500 bg-opacity-90 text-center items-center pb-4 font-serif rounded-b-xl" onSubmit={handleSubmit}>
+
+                    <label className="flex flex-col items-center">
+                        <span className="text-black text-xl">First Name:</span>
+                        <input className="mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm "
                             value={firstName}
                             onChange={handleFirstNameChange} />
                     </label>
-                    <label className="block mb-4">
-                        <span className="text-gray-700">Last Name:</span>
-                        <input className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
+                    <label className="flex flex-col items-center">
+                        <span className="text-black text-xl">Last Name:</span>
+                        <input className="mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm "
                             value={lastName}
                             onChange={handleLastNameChange} />
                     </label>
-                    <label className="block mb-4">
-                        <span className="text-gray-700">About Me:</span>
-                        <textarea className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
+                    <label className="flex flex-col items-center">
+                        <span className="text-black text-xl">About Me:</span>
+                        <textarea className="mt-1 block w-2/3 rounded-md border-gray-300 shadow-sm "
                             rows="3"
                             value={about}
                             onChange={handleAboutChange} />
                     </label>
-                    <label className="block mb-4">
-                        <span className="text-gray-700">Image URL:</span>
-                        <input className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
+                    <label className="flex flex-col items-center mx-2">
+                        <span className="text-black text-xl mt-12">Image URL:</span>
+                        <input className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
                             type="text"
                             value={image}
                             onChange={handleImageUpload}
@@ -110,7 +114,7 @@ const CreateProfile = () => {
                     </label>
 
                     {image && <img className="mt-4 rounded" src={image} alt="Profile Preview" />}
-                    <button type="submit" className="mt-4 px-4 py-2 rounded text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
+                    <button type="submit" className="mt-4 px-4 py-2 rounded text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none hover:scale-125 duration-300">
                         Submit</button>
 
                 </form>
