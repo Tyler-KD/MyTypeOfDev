@@ -92,41 +92,50 @@ const HomePage = () => {
 
 
 
-
+            <div className='flex flex-col items-center justify-center'>
             {data.posts.slice().reverse().map((post) => {
                 return (
-                    <Link key={post._id} to={`/post/${post._id}`}>
-                        <div key={post._id} className='flex flex-col items-center'>
-                            <div className='flex flex-col w-1/2 mt-12 p-2 border-2 border-gray-900 rounded-md'>
-                                <div className='flex flex-col items-center border-2 border-gray-900 rounded-md bg-orange-500 bg-opacity-80'>
-                                    <div className='flex p-3'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />}
-                                        {/* Display the image if it exists */}
-                                        {/* Map through comments if they exist */}
-                                        <div className='flex-initial w-20 pl-2 mt-2 text-white font-bold'><p>{post.postAuthor} posted:</p></div>
 
-                                    </div>
-
-                                    <div className='flex'>
-                                        <h2 className='text-xl font-bold '>{post.postText}</h2>
-                                    </div>
-
-                                    <div>
-                                        <p className='mt-2 text-white'>Posted on: {post.createdAt}</p>
-
-                                        {post.comments && (
-                                            <div>
-                                                <p>Total Comments: {post.comments.length}</p>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
+                    <div key={post._id} className='w-1/2 flex-col items-center'>
+                        
+                        
+                            <div className='flex flex-col  w-full mt-12 p-2 border-2 border-gray-900 rounded-md'>
+                            <Link key={post._id} to={`/post/${post._id}`} className='flex flex-col items-center'> 
+                                <div className='flex flex-col w-full items-center border-2 border-gray-900 rounded-md bg-orange-500 bg-opacity-80'> 
+                                        
+                                         
+                                        <div className='flex p-3'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />} 
+                                                {/* Display the image if it exists */}
+                                                {/* Map through comments if they exist */}
+                                                <div className='flex-initial w-20 pl-2 mt-2 text-white font-bold'><p>{post.postAuthor} posted:</p></div>
+                                            
+                                        </div>
+                                            
+                                        <div className='flex'>
+                                            <h2 className='text-xl font-bold '>{post.postText}</h2>
+                                        </div>
+                                            
+                                        <div>
+                                            <p className='mt-2 text-white'>Posted on: {post.createdAt}</p>
+                                            
+                                            {post.comments && post.comments.map((comment) => (
+                                                <div key={comment._id} className='mt-2 p-2 border border-gray-200 rounded-md'>
+                                                    <p>{comment.commentText}</p>
+                                                    <p className='mt-1 text-sm text-white'>Comment by: {comment.commentAuthor}</p>
+                                                </div>
+                                            ))}
+                                        </div>    
+                                   
+                                </div>    
+                                </Link>
+                            </div>        
+                       
+                        
+                    </div>
                 );
             })}
-
+            </div>
+            
         </div>
     );
 };
