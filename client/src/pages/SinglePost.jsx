@@ -52,7 +52,7 @@ const SinglePostPage = () => {
     const handleRemovePost = async () => {
         try {
             await removePost({ variables: { postId } });
-            window.location.href = '/profile';
+            window.location.href = '/home';
         } catch (error) {
             console.error('Error removing post:', error);
         }
