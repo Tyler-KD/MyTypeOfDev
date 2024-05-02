@@ -66,7 +66,7 @@ const CreateProfile = () => {
 
     return (
 
-        <div className="flex flex-col items-center ">
+        <div className="flex flex-col items-center bg-blue-500 ">
 
             {firstName && lastName && about && image ? (
                 <h1 className="text-4xl font-bold mb-8 bg-blue-500">Edit your Profile</h1>

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_POST_BY_ID } from '../utils/queries';
 import { useMutation } from '@apollo/client';
-import { ADD_COMMENT } from '../utils/mutations';
+import { ADD_COMMENT, REMOVE_POST, REMOVE_COMMENT } from '../utils/mutations';
 import Auth from '../utils/auth.js';
 
 
@@ -21,19 +21,21 @@ const SinglePostPage = () => {
     };
 
     const [addComment] = useMutation(ADD_COMMENT);
+    const [removePost] = useMutation(REMOVE_POST);
+    const [removeComment] = useMutation(REMOVE_COMMENT);
 
     const handleCommentSubmit = async () => {
         try {
             if (Auth.loggedIn()) {
                 const { data: user } = Auth.getProfile();
-                console.log(user.username);
+                // console.log(user.username);
 
                 if (user && post) {
                     const commentAuthor = user.username;
                     const postId = post._id;
 
                     await addComment({ variables: { postId, commentText, commentAuthor } });
-                    console.log('Comment submitted:', commentText);
+                    // console.log('Comment submitted:', commentText);
                     setCommentText('');
                     setShowCommentForm(false);
                 } else {
@@ -47,12 +49,30 @@ const SinglePostPage = () => {
         }
     };
 
+    const handleRemovePost = async () => {
+        try {
+            await removePost({ variables: { postId } });
+            window.location.href = '/home';
+        } catch (error) {
+            console.error('Error removing post:', error);
+        }
+    };
+
+    const handleRemoveComment = async (commentId) => {
+        try {
+            console.log(commentId);
+            await removeComment({ variables: { postId, commentId } });
+        } catch (error) {
+            console.error('Error removing comment:', error);
+        }
+    };
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     const post = data.post;
-    console.log(data.post);
-    console.log(post.comments);
+    // console.log(data.post);
+    // console.log(post.comments);
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -71,6 +91,14 @@ const SinglePostPage = () => {
                     <div key={comment._id} className="border border-gray-300 rounded-md p-4 mb-4">
                         <p className="text-gray-700">{comment.commentText}</p>
                         <p className="text-sm text-gray-500 mt-2">Comment by: {comment.commentAuthor}</p>
+                        {Auth.loggedIn() && Auth.getProfile().data.username === comment.commentAuthor && (
+                            <button
+                                onClick={() => handleRemoveComment(comment._id)} // Pass in comment._id
+                                className="mt-2 px-4 py-2 bg-red-800 text-white rounded-md hover:bg-red-500"
+                            >
+                                Remove Comment
+                            </button>
+                        )}
                     </div>
                 ))}
                 {showCommentForm ? (
@@ -94,6 +122,14 @@ const SinglePostPage = () => {
                         className="mt-4 px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-indigo-500"
                     >
                         Add Comment
+                    </button>
+                )}
+                {Auth.loggedIn() && Auth.getProfile().data.username === post.postAuthor && (
+                    <button
+                        onClick={handleRemovePost}
+                        className="mt-4 px-4 py-2 bg-red-800 text-white rounded-md hover:bg-red-500"
+                    >
+                        Remove Post
                     </button>
                 )}
             </div>
