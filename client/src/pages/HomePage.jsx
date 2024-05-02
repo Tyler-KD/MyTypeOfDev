@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations.js';
-import { GET_ALL_POSTS, GET_ME } from '../utils/queries.js';
+import { GET_ALL_POSTS } from '../utils/queries.js';
 import { TfiComment } from "react-icons/tfi";
+import { VscHeart } from "react-icons/vsc";
 import Auth from '../utils/auth.js';
 import { Link } from 'react-router-dom';
 
@@ -87,9 +88,6 @@ const HomePage = () => {
                     </div>
 
                 </div>
-
-
-
             </div>
 
 
@@ -120,12 +118,13 @@ const HomePage = () => {
                                         
                                             
                                             <div className='flex flex-row'>
-                                                 {post.comments && (<div className='pr-1'><TfiComment/></div>)}
-                                                 <div>{post.comments.length} comments</div>
                                                  
+                                                 <span className='pr-1'>{post.comments.length}</span>
+                                                 {post.comments && (<button><TfiComment/></button>)}
                                             </div>
                                             
-                                       <div>Likes</div>
+                                       <button class= 'likes'><VscHeart/></button>
+                                       <span class= 'likes'>0 likes</span>
                                     
                                     
                                 </div>
