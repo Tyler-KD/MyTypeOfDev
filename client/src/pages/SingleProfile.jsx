@@ -23,9 +23,9 @@ const SinglePostPage = () => {
   console.log(userData);
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen'>
-        <h1 className='text-4xl font-bold mb-8 bg-blue-500'>User Profile</h1>
-        <div className='w-full max-w-sm bg-blue-500'>
+    <div className='flex flex-col items-center justify-center '>
+        <h1 className='text-6xl bg-orange-500 bg-opacity-80 w-1/3 text-center font-serif rounded-t-xl mt-10 animate-dropin1'>User Profile</h1>
+        <div className='bg-orange-500 bg-opacity-90 rounded-b-lg border-2 border-orange-500 w-1/3 py-4 px-4 text-xl font-serif text-start'>
             <p><strong>First Name:</strong> {userData?.user?.firstName}</p>
             <p><strong>Last Name:</strong> {userData?.user?.lastName}</p>
             <p><strong>About Me:</strong> {userData?.user?.about}</p>
