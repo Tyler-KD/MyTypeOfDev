@@ -16,9 +16,15 @@ const typeDefs = `
     postText: String
     postAuthor: String
     createdAt: String
-    
+    likes: [Likes]!
     comments: [Comment]!
     image: String
+  }
+
+  type Likes {
+    _id: ID
+    likeCount: Int
+    likedBy: String
   }
 
   type Comment {
@@ -46,6 +52,8 @@ const typeDefs = `
     addProfile(aboutMe: String, image: String): Auth
     login(email: String!, password: String!): Auth
     addPost(postText: String!, image: String): Post
+    addLike(postId: ID!, likeCount: Int!): Post
+    removeLike(postId: ID!, likeId: ID!): Post
     addComment(postId: ID!, commentText: String!): Post
     removePost(postId: ID!): Post
     removeComment(postId: ID!, commentId: ID!): Post

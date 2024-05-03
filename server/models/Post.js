@@ -23,6 +23,18 @@ const postSchema = new Schema({
     type: String,
     trim: true,
   },
+  likes: [
+    { 
+      likeCount: {
+        type: Number,
+        required: true,
+      },
+      likedBy: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   comments: [
     {
       commentText: {
