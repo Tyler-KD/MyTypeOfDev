@@ -11,6 +11,13 @@ const typeDefs = `
     posts: [Post]
   }
 
+  type Portfolio {
+    _id: ID
+    title: String
+    image: String
+    appURL: String
+  }
+
   type Post {
     _id: ID
     postText: String

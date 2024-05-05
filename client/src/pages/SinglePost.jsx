@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_POST_BY_ID, GET_USER_BY_USERNAME } from '../utils/queries';
 import { useMutation } from '@apollo/client';
-import { ADD_COMMENT, REMOVE_POST, REMOVE_COMMENT } from '../utils/mutations';
+import { ADD_COMMENT, REMOVE_POST, REMOVE_COMMENT, ADD_LIKE, REMOVE_LIKE } from '../utils/mutations';
 import Auth from '../utils/auth.js';
 
 
@@ -19,16 +19,46 @@ const SinglePostPage = () => {
         variables: { username: postAuthorUsername },
     });
 
+    const [ likeCount, setLikeCount ] = useState();
     const [commentText, setCommentText] = useState('');
     const [showCommentForm, setShowCommentForm] = useState(false);
+
+    const handleLikeChange = (e) => {
+        setLikePost(e.target.value);
+    };
 
     const handleCommentChange = (e) => {
         setCommentText(e.target.value);
     };
 
+    const [addLike] = useMutation(ADD_LIKE);
+    const [removeLike] = useMutation(ADD_COMMENT);
     const [addComment] = useMutation(ADD_COMMENT);
     const [removePost] = useMutation(REMOVE_POST);
     const [removeComment] = useMutation(REMOVE_COMMENT);
+
+
+    const handleLikeSubmit = async () => {
+        try {
+            if (Auth.loggedIn()) {
+                const { data: user } = Auth.getProfile();
+
+                if (user && post) {
+                    const likedBy = user.username;
+                    const postId = post._id;
+
+                    await addLike({ variables: { postId, likeCount, likedBy } });
+                    setLikeCount();
+
+                }
+            } else {
+                console.error('User is not authenticated');
+            }
+        } 
+        catch (error) {
+            console.error('Error liking this post', error);
+        }
+    };    
 
     const handleCommentSubmit = async () => {
         try {
