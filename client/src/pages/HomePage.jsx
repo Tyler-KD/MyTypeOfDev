@@ -124,8 +124,8 @@ const HomePage = () => {
                         </button>
 
                         <button onClick={() => setCodeView(!codeView)} className='transition ease-in-out delay-150 px-4 py-2 mt-4 
-                        bg-indigo-600 text-xl text-white rounded-md hover:scale-125 hover:bg-indigo-500 duration-300'>
-                            Toggle Code View
+                        bg-green-600 text-xl text-white rounded-md hover:scale-125 hover:bg-green-500 duration-300'>
+                            Code View
                         </button>
                     </div>
 
@@ -161,7 +161,7 @@ const HomePage = () => {
 
                                         <Link to={`/post/${post._id}`}>
                                             <div className='flex'>
-                                                {codeView ? <pre className='text-2xl text-wrap whitespace-pre-wrap ml-2 mt-3'>{post.postText}</pre> : <h2 className='text-2xl ml-2 mt-3'>{post.postText}</h2>}
+                                                {codeView ? <pre className='transition-all duration-200 hover:scale-100 scale-95 text-2xl text-wrap whitespace-pre-wrap ml-2 mt-3'>{post.postText}</pre> : <h2 className='transition-all duration-200 hover:scale-100 scale-95 text-2xl ml-2 mt-3'>{post.postText}</h2>}
                                             </div>
                                         </Link>
 

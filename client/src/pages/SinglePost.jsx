@@ -96,7 +96,7 @@ const SinglePostPage = () => {
                 <h3 className="text-lg font-bold mb-2">Comments</h3>
                 {post.comments.map(comment => (
                     <div key={comment._id} className="border border-gray-300 rounded-md p-4 mb-4">
-                        <p className="text-gray-700">{comment.commentText}</p>
+                        <pre className="text-gray-700 text-wrap whitespace-pre-wrap">{comment.commentText}</pre>
                         <p className="text-sm text-gray-500 mt-2">Comment by: {comment.commentAuthor}</p>
                         {Auth.loggedIn() && Auth.getProfile().data.username === comment.commentAuthor && (
                             <button

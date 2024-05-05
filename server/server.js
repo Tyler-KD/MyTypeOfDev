@@ -1,5 +1,3 @@
-require('dotenv').config();
-const cors = require('cors');
 const express = require('express');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
@@ -10,43 +8,10 @@ const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
 const app = express();
-app.use(cors());
 const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-});
-
-// This is the test secret API key.
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
-app.post("/create-checkout-session", async (req, res) => {
-    const { amount } = req.body; // You get the amount from the request body
-
-    try {
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items: [
-                {
-                    price_data: {
-                        currency: 'usd',
-                        product_data: {
-                            name: 'Donation',
-                        },
-                        unit_amount: amount * 100, // Stripe amounts are in cents
-                    },
-                    quantity: 1,
-                },
-            ],
-            mode: 'payment',
-            success_url: 'http://localhost:3000/payment-success',
-            cancel_url: 'http://localhost:3000/fundourapp',
-        });
-        res.json({ id: session.id });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'An error occurred while creating the Checkout Session' });
-    }
 });
 
 // Create a new instance of an Apollo server with the GraphQL schema
