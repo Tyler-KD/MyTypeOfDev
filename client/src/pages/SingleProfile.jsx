@@ -34,7 +34,7 @@ const SinglePostPage = () => {
                 <h2 className="text-xl font-bold mb-2">Recent Posts</h2>
                 {userData?.user?.posts.slice().reverse().map((post, index) => (
                         <div key={index} className="mb-2">
-                            <p>{post.postText}</p>
+                            <pre className='text-wrap whitespace-pre-wrap'>{post.postText}</pre>
                             <p>{post.createdAt}</p>
                         </div>
                 ))}

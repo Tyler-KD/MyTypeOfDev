@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node -r esm server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
     "install": "cd server && npm i && cd ../client && npm i",
@@ -24,6 +24,7 @@
     "@apollo/server": "^4.10.4",
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^5.1.1",
+    "esm": "^3.2.25",
     "express": "^4.19.2",
     "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.2",

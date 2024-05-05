@@ -91,7 +91,7 @@ const SinglePostPage = () => {
                         <p className="text-gray-600">{post.createdAt}</p>
                     </div>
                 </div>
-                <h2 className="text-2xl font-bold mb-4">{post.postText}</h2>
+                <pre className="text-2xl font-bold mb-4 text-wrap whitespace-pre-wrap">{post.postText}</pre>
                 <hr className="my-4" />
                 <h3 className="text-lg font-bold mb-2">Comments</h3>
                 {post.comments.map(comment => (

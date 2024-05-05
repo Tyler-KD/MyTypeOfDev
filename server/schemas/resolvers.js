@@ -54,12 +54,18 @@ const resolvers = {
     },
 
     updateProfile: async (parent, args, context) => {
+      console.log(args.applicationData);
       if(context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $set: { about: args.about, image: args.image, firstName: args.firstName, lastName: args.lastName } },
           {new: true}
         );
+        await User.findOneAndUpdate({
+          _id: context.user._id
+        },{
+          $push: {applications: args.applicationData}
+        })
         return updatedUser;
       }
         throw new AuthenticationError('You need to be logged in!');

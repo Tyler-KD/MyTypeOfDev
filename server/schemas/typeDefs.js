@@ -8,7 +8,14 @@ const typeDefs = `
     username: String
     email: String
     password: String
+    applications: [Application]
     posts: [Post]
+  }
+
+  type Application {
+    title: String
+    appURL: String
+    appImageURL: String
   }
 
   type Post {
@@ -33,6 +40,12 @@ const typeDefs = `
     user: User
   }
 
+  input ApplicationInput {
+    title: String
+    appURL: String
+    appImageURL: String
+  }
+
   type Query {
     users: [User]
     user(username: String!): User
@@ -49,7 +62,7 @@ const typeDefs = `
     addComment(postId: ID!, commentText: String!): Post
     removePost(postId: ID!): Post
     removeComment(postId: ID!, commentId: ID!): Post
-    updateProfile(about: String!, image: String!, firstName: String!, lastName: String!): User
+    updateProfile(about: String!, image: String!, firstName: String!, lastName: String!, applicationData: ApplicationInput): User
   }
 `;
 
