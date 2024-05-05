@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const formatTimestamp = require('../utils/dateFormat');
+const { ObjectId } = require('mongodb');
 
 const postSchema = new Schema({
   postText: {
@@ -30,7 +31,7 @@ const postSchema = new Schema({
         required: true,
       },
       likedBy: {
-        type: String,
+        type: ObjectId, ref:"User",
         required: true,
       },
     },

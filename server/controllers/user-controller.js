@@ -111,6 +111,60 @@ module.exports = {
         }
     },
 
+    //Adding a new like to a specified post
+    async addLike ({ user, body: { likeCount }, params: { postId }}, res) {
+        try {
+            if (user) {
+                const updatedPost = await Post.findOneAndUpdate(
+                    { _id: postId },
+                    {
+                        $addToSet: {
+                            likes: { likeCount, likedBy },
+                        }
+                    },
+                    {
+                        new: true,
+                        runValidators: true,
+                    }
+                );
+                res.json(updatedPost);
+            } else {
+                throw new AuthenticationError();
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    // Removing a like from a specified post
+    async removeLike ({ user, body: { likeCount }, params: { postId, likeId }}, res) {
+        try {
+            if (user) {
+                const updatedPost = await Post.findOneAndUpdate(
+                    { _id: postId },
+                    {
+                        $pull: {
+                            likes: { 
+                                _id: likeId,
+                                likeCount, 
+                                likedBy,
+                            },
+                        },
+                    },
+                    {
+                        new: true,
+                        runValidators: true,
+                    }
+                );
+                res.json(updatedPost);
+            } else {
+                throw new AuthenticationError();
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     // Adds a new comment to a specific post. 
     async addComment({ user, body: { commentText }, params: { postId } }, res) {
         try {
