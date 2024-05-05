@@ -53,7 +53,7 @@ function App() {
         <Header />
           {/* The Outlet component is a placeholder that renders the matched route's component */}
           <Outlet />
-
+          
         <Footer />
       </>
     </ApolloProvider>

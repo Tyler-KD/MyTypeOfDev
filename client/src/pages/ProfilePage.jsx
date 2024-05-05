@@ -26,7 +26,7 @@ const ProfilePage = () => {
                     <h2 className="text-xl font-bold mb-2">Applications:</h2>
                     {applications && applications.map((application, index) => (
                         <div key={index} className="mb-2">
-                            <p><strong>Title:</strong> {application.title}</p>
+                            <p><strong></strong> {application.title}</p>
                             {/* <p><strong>URL:</strong> {application.appURL}</p> */}
                             <p><strong></strong> <a href={application.appURL} target="_blank" rel="noopener noreferrer"><img className=" hover:opacity-70" src={application.appImageURL} alt="Application" /></a></p>
                         </div>

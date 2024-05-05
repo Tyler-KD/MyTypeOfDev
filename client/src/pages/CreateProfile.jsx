@@ -82,9 +82,20 @@ const CreateProfile = () => {
         e.preventDefault();
 
         try {
-            const response = await updateProfile({ variables: { about, image, firstName, lastName, applicationData } });
+            // Check if all application fields are filled out
+            const hasApplicationData = applicationData.title && applicationData.appURL && applicationData.appImageURL;
+
+            const variables = {
+                about,
+                image,
+                firstName,
+                lastName,
+                ...(hasApplicationData && { applicationData }) // Include applicationData only if all fields are filled out
+            };
+
+            const response = await updateProfile({ variables });
             console.log(response);
-            console.log({ about, image, firstName, lastName, applicationData })
+            console.log({ variables })
             setisSubmitted(true);
         } catch (err) {
             console.error(err);
