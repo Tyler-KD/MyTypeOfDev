@@ -94,6 +94,7 @@ const resolvers = {
           { _id: postId },
           {
             $addToSet: {
+              
               likes: { likeCount, likedBy: context.user.username },
             },
           },

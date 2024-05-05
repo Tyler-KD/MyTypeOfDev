@@ -4,6 +4,7 @@ import { ADD_POST } from '../utils/mutations.js';
 import { GET_ALL_POSTS, GET_ME, GET_USER_BY_USERNAME } from '../utils/queries.js';
 import { TfiComment } from "react-icons/tfi";
 import { VscHeart } from "react-icons/vsc";
+import { VscHeartFilled } from "react-icons/vsc";
 import Auth from '../utils/auth.js';
 import { Link } from 'react-router-dom';
 

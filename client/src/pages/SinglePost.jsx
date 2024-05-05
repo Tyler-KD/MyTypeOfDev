@@ -5,6 +5,8 @@ import { GET_POST_BY_ID, GET_USER_BY_USERNAME } from '../utils/queries';
 import { useMutation } from '@apollo/client';
 import { ADD_COMMENT, REMOVE_POST, REMOVE_COMMENT, ADD_LIKE, REMOVE_LIKE } from '../utils/mutations';
 import Auth from '../utils/auth.js';
+import { VscHeart } from "react-icons/vsc";
+import { VscHeartFilled } from "react-icons/vsc";
 
 
 const SinglePostPage = () => {
@@ -19,12 +21,13 @@ const SinglePostPage = () => {
         variables: { username: postAuthorUsername },
     });
 
-    const [ likeCount, setLikeCount ] = useState();
+    const [ likeCount, setLikeCount ] = useState(0);
+    const [ showLikedForm, setShowLikedForm ] = useState (false);
     const [commentText, setCommentText] = useState('');
     const [showCommentForm, setShowCommentForm] = useState(false);
 
     const handleLikeChange = (e) => {
-        setLikePost(e.target.value);
+        setLikeCount(e.target.value);
     };
 
     const handleCommentChange = (e) => {
@@ -32,7 +35,7 @@ const SinglePostPage = () => {
     };
 
     const [addLike] = useMutation(ADD_LIKE);
-    const [removeLike] = useMutation(ADD_COMMENT);
+    const [removeLike] = useMutation(REMOVE_LIKE);
     const [addComment] = useMutation(ADD_COMMENT);
     const [removePost] = useMutation(REMOVE_POST);
     const [removeComment] = useMutation(REMOVE_COMMENT);
@@ -46,9 +49,13 @@ const SinglePostPage = () => {
                 if (user && post) {
                     const likedBy = user.username;
                     const postId = post._id;
+                    
 
                     await addLike({ variables: { postId, likeCount, likedBy } });
-                    setLikeCount();
+
+                    setLikeCount(likeCount + 1);
+
+                    //setLikeCount(e.target.value);
 
                 }
             } else {
@@ -58,7 +65,18 @@ const SinglePostPage = () => {
         catch (error) {
             console.error('Error liking this post', error);
         }
-    };    
+    };
+    
+    const handleRemoveLike = async (likeId) => {
+        try {
+            console.log(likeId);
+            const likeCount = likeCount - 1
+            await removeLike({ variables: { postId, likeCount,likeId } });
+
+        } catch (error) {
+            console.error('Error removing like:', error);
+        }
+    };
 
     const handleCommentSubmit = async () => {
         try {
@@ -119,11 +137,39 @@ const SinglePostPage = () => {
                     <div>
                         <h1 className="text-xl font-bold">{post.postAuthor}</h1>
                         <p className="text-gray-600">{post.createdAt}</p>
+
+
+
+                    {showLikedForm ? (
+                   
+                        <button
+                            onChange={handleRemoveLike}
+                            onClick={() => setShowLikedForm()}
+                            className="flex flex-row mr-1 text-xl"
+                        >
+                            <div> {likeCount} Likes</div> <VscHeartFilled/>
+                        </button>
+                    
+                    ) : (
+                        <button
+                            onChange={handleLikeSubmit}
+                            onClick={() => setShowLikedForm(true)}
+                            className="flex flex-row mr-1 text-xl"
+                        >
+                            <div> {likeCount} Likes</div> <VscHeart/>
+                        </button>
+
+                    )}
+                        
+                    
                     </div>
                 </div>
                 <h2 className="text-2xl font-bold mb-4">{post.postText}</h2>
+
+
+                
                 <hr className="my-4" />
-                <h3 className="text-lg font-bold mb-2">Comments</h3>
+                <h3 className="text-lg font-bold mb-2">{post.comments.length} Comments: </h3>
                 {post.comments.map(comment => (
                     <div key={comment._id} className="border border-gray-300 rounded-md p-4 mb-4">
                         <p className="text-gray-700">{comment.commentText}</p>
