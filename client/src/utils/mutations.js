@@ -44,17 +44,24 @@ mutation UpdateProfile(
   $image: String! 
   $firstName: String!
   $lastName: String!
+  $applicationData: ApplicationInput
 ) {
   updateProfile(
     about: $about
     image: $image 
     firstName: $firstName 
     lastName: $lastName
+    applicationData: $applicationData
   ) {
     about
     image
     firstName
     lastName
+    applications {
+      appImageURL
+      appURL
+      title
+    }
   }
 }
 `;

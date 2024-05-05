@@ -9,6 +9,11 @@ const CreateProfile = () => {
     const [image, setImage] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [applicationData, setApplicationData] = useState({
+        title: '',
+        appURL: '',
+        appImageURL: ''
+    });
     const { loading, error, data } = useQuery(GET_ME);
     const client = useApolloClient();
 
@@ -21,6 +26,19 @@ const CreateProfile = () => {
             setLastName(data.me.lastName || '');
             if (!image) {
                 setImage(data.me.image || '');
+            };
+            if (data.me.applicationData) {
+                setApplicationData({
+                    title: data.me.applicationData.title || '',
+                    appURL: data.me.applicationData.appURL || '',
+                    appImageURL: data.me.applicationData.appImageURL || ''
+                });
+            } else {
+                setApplicationData({
+                    title: '',
+                    appURL: '',
+                    appImageURL: ''
+                });
             }
         }
     }, [loading, error, data]);
@@ -44,6 +62,18 @@ const CreateProfile = () => {
         setImage(e.target.value);
     };
 
+    const handleTitleChange = (e) => {
+        setApplicationData({ ...applicationData, title: e.target.value });
+    };
+
+    const handleAppURLChange = (e) => {
+        setApplicationData({ ...applicationData, appURL: e.target.value });
+    };
+
+    const handleAppImageURLChange = (e) => {
+        setApplicationData({ ...applicationData, appImageURL: e.target.value });
+    };
+
     const [updateProfile] = useMutation(UPDATE_PROFILE, {
         refetchQueries: [{ query: GET_ME }],
     });
@@ -52,8 +82,9 @@ const CreateProfile = () => {
         e.preventDefault();
 
         try {
-            await updateProfile({ variables: { about, image, firstName, lastName } });
-            console.log({ about, image, firstName, lastName })
+            const response = await updateProfile({ variables: { about, image, firstName, lastName, applicationData } });
+            console.log(response);
+            console.log({ about, image, firstName, lastName, applicationData })
             setisSubmitted(true);
         } catch (err) {
             console.error(err);
@@ -68,7 +99,7 @@ const CreateProfile = () => {
 
         <div className="flex flex-col items-center  ">
 
-            {firstName && lastName && about && image ? (
+            {firstName && lastName && about && image && applicationData.appImageURL && applicationData.appURL && applicationData.title ? (
                 <h1 className="text-7xl bg-orange-500 bg-opacity-80 w-1/3 text-center font-serif rounded-t-xl mt-10 animate-dropin1">Bio</h1>
             ) : (
                 <h1 className="text-7xl bg-orange-500 bg-opacity-80 w-1/3 text-center font-serif rounded-t-xl mt-10 animate-dropin1">Bio</h1>
@@ -102,6 +133,24 @@ const CreateProfile = () => {
                             rows="3"
                             value={about}
                             onChange={handleAboutChange} />
+                    </label>
+                    <label className="flex flex-col items-center">
+                        <span className="text-black text-xl">Application Title:</span>
+                        <input className="mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm"
+                        value={applicationData.title}
+                        onChange={handleTitleChange} />
+                    </label>
+                    <label className="flex flex-col items-center">
+                        <span className="text-black text-xl">Application URL:</span>
+                        <input className="mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm"
+                        value={applicationData.appURL}
+                        onChange={handleAppURLChange} />
+                    </label>
+                    <label className="flex flex-col items-center">
+                        <span className="text-black text-xl">Application Image URL:</span>
+                        <input className="mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm"
+                        value={applicationData.appImageURL}
+                        onChange={handleAppImageURLChange} />
                     </label>
                     <label className="flex flex-col items-center mx-2">
                         <span className="text-black text-xl mt-12">Image URL:</span>

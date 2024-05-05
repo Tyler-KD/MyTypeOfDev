@@ -6,7 +6,7 @@ const postSchema = new Schema({
     type: String,
     required: 'You need to type something here',
     minlength: 1,
-    maxlength: 280,
+    maxlength: 1000,
     trim: true,
   },
   postAuthor: {

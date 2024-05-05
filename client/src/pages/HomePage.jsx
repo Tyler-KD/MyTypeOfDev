@@ -10,6 +10,15 @@ import { Link } from 'react-router-dom';
 
 // HomePage allows users to add new posts and view all existing posts along with their comments.
 const HomePage = () => {
+    const [codeView, setCodeView] = useState(false);
+
+    // const handleAddPost = () => {
+    //     // Add the post with the current value of postText and codeView
+    //     // Reset postText and codeView
+    //     setPostText('');
+    //     setCodeView(false);
+    // };
+
     const client = useApolloClient();
     // useState hook used to manage the state of the text input for adding a new post.
     const [postText, setPostText] = useState('');
@@ -47,8 +56,8 @@ const HomePage = () => {
                 const { data: userData } = await client.query({ query: GET_USER_BY_USERNAME, variables: { username: post.postAuthor } });
                 return { ...post, image: userData.user.image };
             }));
-            
-            setPosts(updatedPosts);            
+
+            setPosts(updatedPosts);
         };
         if (data && data.posts) {
             fetchPosts();
@@ -60,6 +69,10 @@ const HomePage = () => {
     // It checks if the user is logged in and if the username exists.
     // If so, it executes the addPost mutation with the text input and username as variables.
     const handleAddPost = async () => {
+        // Add the post with the current value of postText and codeView
+        // Reset postText and codeView
+        setPostText('');
+        setCodeView(false);
         try {
             if (Auth.loggedIn()) {
                 const { data: userData } = await client.query({ query: GET_ME });
@@ -109,6 +122,11 @@ const HomePage = () => {
                         <button onClick={handleAddPost} className='transition ease-in-out delay-150 px-4 py-2 mt-4 bg-indigo-600 text-xl text-white rounded-md hover:scale-125 hover:bg-indigo-500 duration-300'>
                             Add Post
                         </button>
+
+                        <button onClick={() => setCodeView(!codeView)} className='transition ease-in-out delay-150 px-4 py-2 mt-4 
+                        bg-indigo-600 text-xl text-white rounded-md hover:scale-125 hover:bg-indigo-500 duration-300'>
+                            Toggle Code View
+                        </button>
                     </div>
 
                 </div>
@@ -143,7 +161,7 @@ const HomePage = () => {
 
                                         <Link to={`/post/${post._id}`}>
                                             <div className='flex'>
-                                                <h2 className='text-2xl ml-2 mt-3'>{post.postText}</h2>
+                                                {codeView ? <pre className='text-2xl text-wrap whitespace-pre-wrap ml-2 mt-3'>{post.postText}</pre> : <h2 className='text-2xl ml-2 mt-3'>{post.postText}</h2>}
                                             </div>
                                         </Link>
 

@@ -14,6 +14,11 @@ export const GET_ME = gql`
       username
       about
       image
+      applications {
+        title
+        appURL
+        appImageURL
+      }
       posts {
         postText
         postAuthor
@@ -74,6 +79,11 @@ query user($username: String!) {
       username
       about
       image
+      applications {
+        title
+        appURL
+        appImageURL
+      }
       posts {
         postText
         postAuthor
@@ -85,4 +95,4 @@ query user($username: String!) {
         }
       }
   }
-}`
+}`;
