@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import { useState } from "react";
 
 const ProfilePage = () => {
-    const { loading, error, data } = useQuery(GET_ME);
+    const { loading, error, data } = useQuery(GET_ME, {
+        fetchPolicy: "network-only"
+    });
+    
     const [codeView, setCodeView] = useState(false);
 
     if (loading) return <p>Loading...</p>;
