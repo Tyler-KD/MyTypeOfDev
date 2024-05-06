@@ -4,16 +4,17 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-
-
+// LoginForm allows a user to log into the application
 const LoginForm = (props) => {
+    // The useState hook is used to create formState, which is an object that holds the email and password entered by the user.
     const [formState, setFormState] = useState({
         email: '',
         password: ''
     });
-
+    // The useMutation hook from Apollo Client is used to prepare the LOGIN_USER mutation.
+    // This mutation will be sent to the GraphQL server when the user submits the form.
     const [login, { error, data }] = useMutation(LOGIN_USER);
-
+    // The handleChange function updates formState whenever the user types into the form fields.
     const handleChange = (event) => {
         const { name, value } = event.target;
         // console.log(`changing ${name} to ${value}`);
@@ -23,7 +24,9 @@ const LoginForm = (props) => {
             [name]: value,
         });
     };
-
+    // The handleSubmit function is called when the user submits the form.
+    // It sends the LOGIN_USER mutation to the server with the current formState as variables.
+    // If the mutation is successful, the user is logged in using the Auth.login function, and then redirected to the home page.
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(formState);
@@ -40,7 +43,10 @@ const LoginForm = (props) => {
             console.error(e);
         }
     };
-
+    
+    // Returns a form that the user can fill out to log in.
+    // If the data variable is truthy (LOGIN_USER mutation has completed successfully), a success message is displayed.
+    // Otherwise, the login form is displayed.
     return (
         <>
             {data ? (

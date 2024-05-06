@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom/dist'
 import CreateProfile from './pages/CreateProfile.jsx'
 import SinglePost from './pages/SinglePost.jsx'
 import SingleProfile from './pages/SingleProfile.jsx';
+import Donations from './pages/Donations.jsx'
 
 
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: '/profile/:postId',
         element: <SingleProfile />
+      },
+      {
+        path: '/donate',
+        element: <Donations />
       }
     ]
   }

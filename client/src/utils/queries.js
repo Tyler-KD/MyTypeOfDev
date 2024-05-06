@@ -14,6 +14,12 @@ export const GET_ME = gql`
       username
       about
       image
+      applications {
+        _id
+        title
+        appURL
+        appImageURL
+      }
       posts {
         postText
         postAuthor
@@ -32,6 +38,7 @@ export const GET_ME = gql`
   }
 `;
 
+// Fetches all posts and their associated comments.
 export const GET_ALL_POSTS = gql`
 query posts {
   posts {
@@ -55,6 +62,8 @@ query posts {
 }
 `;
 
+// Fetches a single post by its Id.
+// Returns that single post's data and saved list of comments.
 export const GET_POST_BY_ID = gql`
   query post($postId: ID!) {
     post(postId: $postId) {
@@ -78,6 +87,8 @@ export const GET_POST_BY_ID = gql`
   }
 `;
 
+// Fetches a single user by its username.
+// Returns all the profile data for that single user, a list of saved applications, a list of saved posts, and a list of saved comments.
 export const GET_USER_BY_USERNAME = gql`
 query user($username: String!) {
   user(username: $username) {
@@ -88,6 +99,11 @@ query user($username: String!) {
       username
       about
       image
+      applications {
+        title
+        appURL
+        appImageURL
+      }
       posts {
         postText
         postAuthor
@@ -103,4 +119,4 @@ query user($username: String!) {
         }
       }
   }
-}`
+}`;

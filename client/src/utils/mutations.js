@@ -38,23 +38,33 @@ export const ADD_USER = gql`
   }
 `;
 
+// Updates the profile.
+// about, image, firstName, lastName, and applicationData as input parameters.
+// If the profile is successfully updated, it returns the profile's details ( about, image, firstName, lastName) and list of saved applications.
 export const UPDATE_PROFILE = gql`
 mutation UpdateProfile(
   $about: String!
   $image: String! 
   $firstName: String!
   $lastName: String!
+  $applicationData: ApplicationInput
 ) {
   updateProfile(
     about: $about
     image: $image 
     firstName: $firstName 
     lastName: $lastName
+    applicationData: $applicationData
   ) {
     about
     image
     firstName
     lastName
+    applications {
+      appImageURL
+      appURL
+      title
+    }
   }
 }
 `;
@@ -161,6 +171,21 @@ mutation removeComment($postId: ID!, $commentId: ID!) {
       commentText
       commentAuthor
       createdAt
+    }
+  }
+}
+`;
+
+// Remove an application by its id.
+// applicationId as input parameter.
+export const REMOVE_APPLICATION = gql`
+mutation RemoveApplication($applicationId: ID!) {
+  removeApplication(applicationId: $applicationId) {
+    applications {
+      _id
+      appImageURL
+      appURL
+      title
     }
   }
 }
