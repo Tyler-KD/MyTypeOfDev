@@ -1,10 +1,7 @@
 import { Outlet } from 'react-router-dom'
-import Navbar from './components/Navbar'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import LandingPage from './pages/LandingPage'
 import { io } from "socket.io-client";
-import { Routes } from "react-router-dom";
 
 import './index.css'
 
@@ -15,8 +12,7 @@ import {
   createHttpLink
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { useState } from 'react'
-import { useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
 
 // Construct our main GraphQL API endpoint
@@ -44,30 +40,20 @@ const client = new ApolloClient({
 });
 
 function App() {
-  // const [username, setUsername] = useState("");
-  // const [user, setUser] = useState("");
-  // const [socket, setSocket] = useState(null);
-  
-  // useEffect(()=>{
-  //   setSocket(io("http://localhost:4000"));
-  // },[])
 
-  // useEffect(()=>{
-  //   socket?.emit("newUser", user)
-  // }, [socket, user])
-
-
-  
+  useEffect(() => {
+    const socket = io("http://localhost:4000");
+    console.log(socket)
+  }, [])
   return (
 
     // ApolloProvider wraps the application and places the client on the context, which allows access to it from anywhere in the component tree.
     <ApolloProvider client={client}>
       <>
         <Header />
-
-        {/* The Outlet component is a placeholder that renders the matched route's component */}
-        <Outlet />
-
+          {/* The Outlet component is a placeholder that renders the matched route's component */}
+          <Outlet />
+          
         <Footer />
       </>
     </ApolloProvider>

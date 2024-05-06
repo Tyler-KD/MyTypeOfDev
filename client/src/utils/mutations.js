@@ -38,23 +38,33 @@ export const ADD_USER = gql`
   }
 `;
 
+// Updates the profile.
+// about, image, firstName, lastName, and applicationData as input parameters.
+// If the profile is successfully updated, it returns the profile's details ( about, image, firstName, lastName) and list of saved applications.
 export const UPDATE_PROFILE = gql`
 mutation UpdateProfile(
   $about: String!
   $image: String! 
   $firstName: String!
   $lastName: String!
+  $applicationData: ApplicationInput
 ) {
   updateProfile(
     about: $about
     image: $image 
     firstName: $firstName 
     lastName: $lastName
+    applicationData: $applicationData
   ) {
     about
     image
     firstName
     lastName
+    applications {
+      appImageURL
+      appURL
+      title
+    }
   }
 }
 `;
@@ -70,6 +80,11 @@ export const ADD_POST = gql`
       postAuthor
       createdAt
       image
+      likes {
+        _id
+        likeCount
+        likedBy
+      }
       comments {
         _id
         commentText
@@ -78,6 +93,36 @@ export const ADD_POST = gql`
       }
     }
   }
+`;
+
+export const ADD_LIKE = gql`
+mutation addLike($postId: ID!, $likeCount: Int!) {
+  addLike(postId: $postId, likeCount: $likeCount) {
+    _id
+    likeCount
+    likedBy
+    likes {
+      _id
+      likeCount
+      likedBy
+    }
+  }
+}
+`;
+
+export const REMOVE_LIKE = gql`
+mutation removeLike($postId: ID!, $likeId: ID!) {
+  removeLike(postId: $postId, likeId: $likeId) {
+    _id
+    likeCount
+    likedBy
+    likes {
+      _id
+      likeCount
+      likedBy
+    }
+  }
+}
 `;
 
 // Add a comment to an existing post.
@@ -126,6 +171,21 @@ mutation removeComment($postId: ID!, $commentId: ID!) {
       commentText
       commentAuthor
       createdAt
+    }
+  }
+}
+`;
+
+// Remove an application by its id.
+// applicationId as input parameter.
+export const REMOVE_APPLICATION = gql`
+mutation RemoveApplication($applicationId: ID!) {
+  removeApplication(applicationId: $applicationId) {
+    applications {
+      _id
+      appImageURL
+      appURL
+      title
     }
   }
 }

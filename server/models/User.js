@@ -36,6 +36,11 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  applications: [{
+    title: String,
+    appURL: String,
+    appImageURL: String,
+  }],
   posts: [
     {
       type: Schema.Types.ObjectId,

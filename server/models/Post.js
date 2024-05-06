@@ -1,12 +1,13 @@
 const { Schema, model } = require('mongoose');
 const formatTimestamp = require('../utils/dateFormat');
+const { ObjectId } = require('mongodb');
 
 const postSchema = new Schema({
   postText: {
     type: String,
     required: 'You need to type something here',
     minlength: 1,
-    maxlength: 280,
+    maxlength: 1000,
     trim: true,
   },
   postAuthor: {
@@ -23,6 +24,18 @@ const postSchema = new Schema({
     type: String,
     trim: true,
   },
+  likes: [
+    { 
+      likeCount: {
+        type: Number,
+        required: true,
+      },
+      likedBy: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   comments: [
     {
       commentText: {
