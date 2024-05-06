@@ -92,9 +92,10 @@ const HomePage = () => {
     const likePost = async () => {
         try {
             if (Auth.loggedIn()) {
-                const { data: post } = await client.query({ query: GET_POST_BY_ID, variables: { _id: post._id} });
-                    const postId = post._id;
-                if (postId) {
+                const { data: user } = Auth.getProfile();
+                const { data: postId } = await client.query({ query: GET_POST_BY_ID, variables: { _id: post._id} });
+                    
+                if ( user && postId) {
 
                     const result = async () => {
                         const newCount = likes.map(item =>{
@@ -104,10 +105,10 @@ const HomePage = () => {
                                 return item
                             }
                         })
-                        setLikeCount(newCount)
+                        
                     }
                     // const likedBy = user.username;
-                    
+                    setLikeCount(result)
 
                     await addLike({ variables: { postId }})
                 }
