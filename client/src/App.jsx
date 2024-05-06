@@ -1,14 +1,7 @@
 import { Outlet } from 'react-router-dom'
-import Navbar from './components/Navbar'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import LandingPage from './pages/LandingPage'
 import { io } from "socket.io-client";
-import { Routes } from "react-router-dom";
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-// import { config } from 'dotenv';
-// config();
 
 import './index.css'
 
@@ -46,11 +39,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// Make sure to call loadStripe outside of a component's render to avoid
-// recreating the Stripe object on every render.
-// Load Stripe with your publishable key
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-
 function App() {
 
   useEffect(() => {
@@ -63,12 +51,9 @@ function App() {
     <ApolloProvider client={client}>
       <>
         <Header />
-        {/* StripeProvider and Elements wrapper */}
-        <Elements stripe={stripePromise}>
           {/* The Outlet component is a placeholder that renders the matched route's component */}
           <Outlet />
-        </Elements>
-
+          
         <Footer />
       </>
     </ApolloProvider>

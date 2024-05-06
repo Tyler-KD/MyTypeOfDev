@@ -38,6 +38,9 @@ export const ADD_USER = gql`
   }
 `;
 
+// Updates the profile.
+// about, image, firstName, lastName, and applicationData as input parameters.
+// If the profile is successfully updated, it returns the profile's details ( about, image, firstName, lastName) and list of saved applications.
 export const UPDATE_PROFILE = gql`
 mutation UpdateProfile(
   $about: String!

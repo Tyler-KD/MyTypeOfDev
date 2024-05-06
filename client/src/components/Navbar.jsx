@@ -31,7 +31,7 @@ const Navbar = () => {
                             <ul className='text-white font-medium hidden lg:flex lg:items-center lg:justify-center lg:space-x-10 text-2xl'>
                                 <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/home" activeclassname="selected">Home</NavLink></li>
                                 <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/profile" activeclassname="selected">Profile</NavLink></li>
-                                <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/fundourapp" activeclassname="selected">Fund Our App</NavLink></li>
+                                <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/donate" activeclassname="selected">Fund This App</NavLink></li>
                                 <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink onClick={handleLogout} activeclassname="selected">Logout</NavLink></li>
                             </ul>
                         </>
@@ -65,7 +65,7 @@ const Navbar = () => {
                                 <ul className='p-8 text-4xl ml-20'>
                                     <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/home" activeclassname="selected">Home</NavLink></li>
                                     <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/profile" activeclassname="selected">Profile</NavLink></li>
-                                    <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/fundourapp" activeclassname="selected">Fund Our App</NavLink></li>
+                                    <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/donate" activeclassname="selected">Fund This App</NavLink></li>
                                     <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink onClick={handleLogout} activeclassname="selected">Logout</NavLink></li>
                                 </ul>
                             </>

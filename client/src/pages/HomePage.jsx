@@ -10,14 +10,8 @@ import { Link } from 'react-router-dom';
 
 // HomePage allows users to add new posts and view all existing posts along with their comments.
 const HomePage = () => {
+    // useState hook is used to create a state variable codeView which is used to toggle between normal text view and code view for the posts.
     const [codeView, setCodeView] = useState(false);
-
-    // const handleAddPost = () => {
-    //     // Add the post with the current value of postText and codeView
-    //     // Reset postText and codeView
-    //     setPostText('');
-    //     setCodeView(false);
-    // };
 
     const client = useApolloClient();
     // useState hook used to manage the state of the text input for adding a new post.
@@ -102,8 +96,6 @@ const HomePage = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : </p>;
 
-
-
     console.log(data);
     return (
         <div className='p-4'>
@@ -122,10 +114,10 @@ const HomePage = () => {
                         <button onClick={handleAddPost} className='transition ease-in-out delay-150 px-4 py-2 mt-4 bg-indigo-600 text-xl text-white rounded-md hover:scale-125 hover:bg-indigo-500 duration-300'>
                             Add Post
                         </button>
-
+                        {/* The setCodeView function is used to toggle the codeView state when the "Code view" button is clicked. */}
                         <button onClick={() => setCodeView(!codeView)} className='transition ease-in-out delay-150 px-4 py-2 mt-4 
-                        bg-indigo-600 text-xl text-white rounded-md hover:scale-125 hover:bg-indigo-500 duration-300'>
-                            Toggle Code View
+                        bg-green-600 text-xl text-white rounded-md hover:scale-125 hover:bg-green-500 duration-300'>
+                            Code View
                         </button>
                     </div>
 
@@ -149,19 +141,18 @@ const HomePage = () => {
                                     <div className='flex flex-col w-full border-2 border-gray-900 rounded-md bg-orange-500 bg-opacity-90'>
 
                                         {/* Check if the logged-in user is the author of the post */}
+                                        {/* If logged-in user is the author of the post, direct to /profile */}
+                                        {/* Otherwise, user is directed to /profile/${post._id} */}
                                         <Link to={Auth.getProfile().data.username === post.postAuthor ? `/profile` : `/profile/${post._id}`}>
                                             <div className='flex'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />} </div>
                                         </Link>
-                                        {/* Display the image if it exists */}
-                                        {/* Map through comments if they exist */}
-
 
                                         <div><p className='text-black font-bold text-3xl ml-2'>{post.postAuthor}<span className='text-black text-xl'>:</span></p></div>
 
-
                                         <Link to={`/post/${post._id}`}>
                                             <div className='flex'>
-                                                {codeView ? <pre className='text-2xl text-wrap whitespace-pre-wrap ml-2 mt-3'>{post.postText}</pre> : <h2 className='text-2xl ml-2 mt-3'>{post.postText}</h2>}
+                                                {/* The codeView state variable is used to conditionally render the postTexts in a <pre> tag (for code view) or <h2> tag (for normal view). */}
+                                                {codeView ? <pre className='transition-all duration-200 hover:scale-100 scale-95 text-2xl text-wrap whitespace-pre-wrap ml-2 mt-3'>{post.postText}</pre> : <h2 className='transition-all duration-200 hover:scale-100 scale-95 text-2xl ml-2 mt-3'>{post.postText}</h2>}
                                             </div>
                                         </Link>
 

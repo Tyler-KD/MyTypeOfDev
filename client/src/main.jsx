@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom/dist'
 import CreateProfile from './pages/CreateProfile.jsx'
 import SinglePost from './pages/SinglePost.jsx'
 import SingleProfile from './pages/SingleProfile.jsx';
-import FundOurApp from './pages/FundOurApp.jsx'
+import Donations from './pages/Donations.jsx'
 
 
 const router = createBrowserRouter([
@@ -40,8 +40,8 @@ const router = createBrowserRouter([
         element: <SingleProfile />
       },
       {
-        path: '/fundourapp',
-        element: <FundOurApp />
+        path: '/donate',
+        element: <Donations />
       }
     ]
   }
