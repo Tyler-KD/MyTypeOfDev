@@ -1,24 +1,32 @@
-
 const { User, Post } = require('../models');
 const UserService = require('../services/UserService');
 const { signToken, AuthenticationError } = require('../utils/auth');
 const formatTimestamp = require('../utils/dateFormat');
 
+// Resolvers provide the instructions for turning a GraphQL operation into data.
+// They resolve the query to the actual data from the database.
+// Query resolvers fetch data from the database.
+// Mutation resolvers modify data in the database.
 const resolvers = {
   Query: {
+    // Fetches all users.
     users: async () => {
       return User.find().populate('posts');
     },
+    // Fetches a single user by username.
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('posts');
     },
+    // Fetches all posts or posts by a specific user.
     posts: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Post.find(params).sort({ createdAt: 1 });
     },
+    // Fetches a single post by ID.
     post: async (parent, { postId }) => {
       return Post.findOne({ _id: postId });
     },
+    // Fetches the profile of the currently authenticated user.
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('posts');
@@ -28,13 +36,14 @@ const resolvers = {
   },
 
   Mutation: {
-
+    // Creates a new user.
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
 
+    // Authenticates a user and returns a token.
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -53,6 +62,7 @@ const resolvers = {
       return { token, user };
     },
 
+    // Updates a user's profile.
     updateProfile: async (parent, args, context) => {
       console.log(args.applicationData);
       if(context.user) {
@@ -71,6 +81,7 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
     },
 
+    // Adds a new post.
     addPost: async (parent, args, context) => {
       if (context.user) {        
         // Fetch the user's image from the User model
@@ -94,6 +105,7 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
+    // Adds a new comment to a post.
     addComment: async (parent, { postId, commentText }, context) => {
       if (context.user) {
         return Post.findOneAndUpdate(
@@ -112,6 +124,7 @@ const resolvers = {
       throw AuthenticationError;
     },
 
+    // Deletes a post.
     removePost: async (parent, { postId }, context) => {
       if (context.user) {
         const post = await Post.findOneAndDelete({
@@ -129,6 +142,7 @@ const resolvers = {
       throw AuthenticationError;
     },
 
+    // Removes a comment from a post.
     removeComment: async (parent, { postId, commentId }, context) => {      
       if (context.user) {
         return Post.findOneAndUpdate(

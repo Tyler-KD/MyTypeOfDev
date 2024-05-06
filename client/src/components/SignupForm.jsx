@@ -11,7 +11,10 @@ const SignupForm = () => {
         email: '',
         password: '',
     });
-
+    // When the ADD_USER mutation is succesful, it returns a JWT(JSON Web Token) that encodes the user's information in a payload, which is then signed by the server.
+    // This token is sent back to the client and can be used to authenticate subsequent requests from the client.
+    // The Auth.login function takes this token as an argument, and stores the token on the client side, such as local storage or a cookie.
+    // This allows the token to be included in the headers of subsequent requests to authenticate the user.
     const [addUser, { error, data }] = useMutation(ADD_USER);
 
     const handleChange = (event) => {
@@ -22,7 +25,7 @@ const SignupForm = () => {
             [name]: value,
         });
     };
-
+    // If mutation is successful, the user is logged in using the Auth.login function, and then redirected to the create profile page.
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(formState);
@@ -39,6 +42,9 @@ const SignupForm = () => {
             console.error(e);
         }
     }
+    
+    // If the data variable is truthy (ADD_USER mutation has completed successfully), a success message is displayed.
+    // Otherwise, the signup form is displayed.
     return (
         <>
             {data ? (
