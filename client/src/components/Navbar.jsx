@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import image1 from '../assets/dev-Hub_1 copy.png';
 import Auth from '../utils/auth';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import "./Navbar.css"
+import Notifications from "../assets/Notifications.png"
 
-const Navbar = () => {
+const Navbar = ({socket, user}) => {
 
     const [nav, setNav] = useState(false)
     const handleNav = () => {
@@ -15,6 +17,42 @@ const Navbar = () => {
     const handleLogout = () => {
         Auth.logout(); // log the user out
     };
+
+    // const handleNotifications = (type) => {
+    //     Socket.emit("sendNotification", {
+    //         senderName:user,
+    //         receiverName: post.username,
+    //         type,
+    //     });
+    // };
+
+    // const [notifications, setNotifications] = useState([])
+
+    // useEffect(()=>{
+    //     socket.on("getNotification", (data)=>{
+    //         setNotifications((prev) => [...prev, data])
+    //     })
+    // },[socket]);
+
+    // const displayNotification = ({ senderName, type }) => {
+    //     let action;
+    
+    //     if (type === 1) {
+    //       action = "liked";
+    //     } else if (type === 2) {
+    //       action = "commented";
+    //     } 
+    //     return (
+    //       <span className="notification">{`${senderName} ${action} your post.`}</span>
+    //     );
+    //   };
+
+    //   const handleRead = () => {
+    //     setNotifications([]);
+    //     setOpen(false);
+    //   };
+
+    // console.log(notifications)
 
     return (
         <div className='flex flex-col justify-between'>
@@ -33,12 +71,16 @@ const Navbar = () => {
                                 <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/profile" activeclassname="selected">Profile</NavLink></li>
                                 <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink to="/donate" activeclassname="selected">Fund This App</NavLink></li>
                                 <li className='p-2 transition-all duration-200 hover:scale-110'><NavLink onClick={handleLogout} activeclassname="selected">Logout</NavLink></li>
+                                <div className='icon'>
+                                    <img src={Notifications} className='iconImg' alt=''/>
+                                    <div className='counter'>3</div>
+                                </div>
                             </ul>
                         </>
                     ) : (
                         // If user is logged out, only show the devHub landingpage link
                         <h1 className='text-white text-xl lg:text-2xl transition-all duration-200 hover:scale-110 animate-slidein1'>
-                            <NavLink to='/' className='font-bold'>
+                            <NavLink to={Notifications} className='font-bold'>
                                 <img className='h-auto w-[200px]' src={image1} />
                             </NavLink>
                         </h1>
