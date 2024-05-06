@@ -100,29 +100,43 @@ const HomePage = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : </p>;
 
+    // const updatedPosts = await Promise.all(data.posts.map(async post => {
+    //     const { data: userData } = await client.query({ query: GET_USER_BY_USERNAME, variables: { username: post.postAuthor } });
+    //     return { ...post, image: userData.user.image };
+
+
     const likePost = async () => {
         try {
             if (Auth.loggedIn()) {
                 const { data: user } = Auth.getProfile();
-                const { data: postId } = await client.query({ query: GET_POST_BY_ID, variables: { _id: post._id} });
+                console.log(user.username);
+
+                if ( user ) {
+                    const postId = await Promise.all(data.posts.map(async post => {
+                        const postData = await client.query({ query: GET_POST_BY_ID, variables: { postId: post._id} });
+                    console.log(post._id);
                     
-                if ( user && postId) {
+                    }))
 
-                    const result = async () => {
-                        const newCount = likes.map(item =>{
-                            if (item._id == result._id){
-                                return result
-                            } else {
-                                return item
-                            }
-                        })
+                   
+                    return { postId };
+                //     // const result = async () => {
+                //     //     const newCount = likes.map(item =>{
+                //     //         if (item._id == result._id){
+                //     //             return result
+                //     //         } else {
+                //     //             return item
+                //     //         }
+                //     //     })
                         
-                    }
-                    // const likedBy = user.username;
-                    setLikeCount(result)
+                //     // }
+                //     // const likedBy = user.username;
+                //     // setLikeCount(result)
 
-                    await addLike({ variables: { postId }})
-                }
+                //     // await addLike({ variables: { postId }})
+                 }
+
+                
             }
         }         
         catch (error) {
@@ -162,6 +176,7 @@ const HomePage = () => {
 
 
 console.log(data);
+
     return (
         <div className='p-4'>
             <div className='flex flex-col items-center p-4 bg-slate-800 bg-opacity-50 rounded-full'>
