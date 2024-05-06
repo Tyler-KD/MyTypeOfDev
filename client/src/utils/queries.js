@@ -24,6 +24,10 @@ export const GET_ME = gql`
         postText
         postAuthor
         createdAt
+        likes {
+          likeCount
+          likedBy
+        }
         comments {
           commentText
           commentAuthor
@@ -43,6 +47,11 @@ query posts {
     postAuthor
     createdAt
     image
+    likes {
+      _id
+      likeCount
+      likedBy
+    }
     comments {
       _id
       commentText
@@ -63,6 +72,11 @@ export const GET_POST_BY_ID = gql`
       postText
       image
       createdAt
+      likes {
+        _id
+        likeCount
+        likedBy
+      }
       comments {
         _id
         commentText
@@ -94,6 +108,10 @@ query user($username: String!) {
         postText
         postAuthor
         createdAt
+        likes {
+          likeCount
+          likedBy
+        }
         comments {
           commentText
           commentAuthor

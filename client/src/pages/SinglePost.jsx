@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_POST_BY_ID, GET_USER_BY_USERNAME } from '../utils/queries';
 import { useMutation } from '@apollo/client';
-import { ADD_COMMENT, REMOVE_POST, REMOVE_COMMENT } from '../utils/mutations';
+import { ADD_COMMENT, REMOVE_POST, REMOVE_COMMENT, ADD_LIKE, REMOVE_LIKE } from '../utils/mutations';
 import Auth from '../utils/auth.js';
+import { VscHeart } from "react-icons/vsc";
+import { VscHeartFilled } from "react-icons/vsc";
 
 // SinglePostPage displays a single post and its comments, and allows users to add new comments, remove existing comments, or remove the post.
 const SinglePostPage = () => {
@@ -20,8 +22,14 @@ const SinglePostPage = () => {
         variables: { username: postAuthorUsername },
     });
 
+    const [ likeCount, setLikeCount ] = useState(0);
+    const [ showLikedForm, setShowLikedForm ] = useState (false);
     const [commentText, setCommentText] = useState('');
     const [showCommentForm, setShowCommentForm] = useState(false);
+
+    const handleLikeChange = (e) => {
+        setLikeCount(e.target.value);
+    };
 
     // The handleCommentChange function updates commentText whenever the user types into the comment form.
     const handleCommentChange = (e) => {
@@ -29,9 +37,49 @@ const SinglePostPage = () => {
     };
     // The ADD_COMMENT, REMOVE_POST, and REMOVE_COMMENT mutations will be sent to the GraphQL server 
     // when the user adds a new comment, removes a post, or removes a comment.
+    const [addLike] = useMutation(ADD_LIKE);
+    const [removeLike] = useMutation(REMOVE_LIKE);
     const [addComment] = useMutation(ADD_COMMENT);
     const [removePost] = useMutation(REMOVE_POST);
     const [removeComment] = useMutation(REMOVE_COMMENT);
+
+
+    const handleLikeSubmit = async () => {
+        try {
+            if (Auth.loggedIn()) {
+                const { data: user } = Auth.getProfile();
+
+                if (user && post) {
+                    const likedBy = user.username;
+                    const postId = post._id;
+                    
+
+                    await addLike({ variables: { postId, likeCount, likedBy } });
+
+                    setLikeCount(likeCount + 1);
+
+                    //setLikeCount(e.target.value);
+
+                }
+            } else {
+                console.error('User is not authenticated');
+            }
+        } 
+        catch (error) {
+            console.error('Error liking this post', error);
+        }
+    };
+    
+    const handleRemoveLike = async (likeId) => {
+        try {
+            console.log(likeId);
+            const likeCount = likeCount - 1
+            await removeLike({ variables: { postId, likeCount,likeId } });
+
+        } catch (error) {
+            console.error('Error removing like:', error);
+        }
+    };
 
     // The handleCommentSubmit function is called when the user submits the comment form.
     const handleCommentSubmit = async () => {
@@ -96,11 +144,36 @@ const SinglePostPage = () => {
                     <div>
                         <h1 className="text-xl font-bold">{post.postAuthor}</h1>
                         <p className="text-gray-600">{post.createdAt}</p>
+
+
+
+                    {showLikedForm ? (
+                   
+                        <button
+                            onChange={handleRemoveLike}
+                            onClick={() => setShowLikedForm()}
+                            className="flex flex-row mr-1 text-xl"
+                        >
+                            <div> {likeCount} Likes</div> <VscHeartFilled/>
+                        </button>
+                    
+                    ) : (
+                        <button
+                            onChange={handleLikeSubmit}
+                            onClick={() => setShowLikedForm(true)}
+                            className="flex flex-row mr-1 text-xl"
+                        >
+                            <div> {likeCount} Likes</div> <VscHeart/>
+                        </button>
+
+                    )}
+                        
+                    
                     </div>
                 </div>
                 <pre className="text-2xl font-bold mb-4 text-wrap whitespace-pre-wrap">{post.postText}</pre>
                 <hr className="my-4" />
-                <h3 className="text-lg font-bold mb-2">Comments</h3>
+                <h3 className="text-lg font-bold mb-2">{post.comments.length} Comments: </h3>
                 {post.comments.map(comment => (
                     <div key={comment._id} className="border border-gray-300 rounded-md p-4 mb-4">
                         <pre className="text-gray-700 text-wrap whitespace-pre-wrap">{comment.commentText}</pre>

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useApolloClient } from '@apollo/client';
-import { ADD_POST } from '../utils/mutations.js';
-import { GET_ALL_POSTS, GET_ME, GET_USER_BY_USERNAME } from '../utils/queries.js';
+import { ADD_POST, ADD_LIKE, REMOVE_LIKE } from '../utils/mutations.js';
+import { GET_ALL_POSTS, GET_ME, GET_USER_BY_USERNAME, GET_POST_BY_ID } from '../utils/queries.js';
 import { TfiComment } from "react-icons/tfi";
 import { VscHeart } from "react-icons/vsc";
+import { VscHeartFilled } from "react-icons/vsc";
 import Auth from '../utils/auth.js';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +18,9 @@ const HomePage = () => {
     // useState hook used to manage the state of the text input for adding a new post.
     const [postText, setPostText] = useState('');
     const [posts, setPosts] = useState([]);
+    const [ likeCount, setLikeCount ] = useState([]);
+    const [addLike] = useMutation(ADD_LIKE);
+    const [removeLike] = useMutation(REMOVE_LIKE);
 
     // useMutation hook used to execute the ADD_POST mutation
     const [addPost] = useMutation(ADD_POST, {
@@ -96,7 +100,68 @@ const HomePage = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error : </p>;
 
-    console.log(data);
+    const likePost = async () => {
+        try {
+            if (Auth.loggedIn()) {
+                const { data: user } = Auth.getProfile();
+                const { data: postId } = await client.query({ query: GET_POST_BY_ID, variables: { _id: post._id} });
+                    
+                if ( user && postId) {
+
+                    const result = async () => {
+                        const newCount = likes.map(item =>{
+                            if (item._id == result._id){
+                                return result
+                            } else {
+                                return item
+                            }
+                        })
+                        
+                    }
+                    // const likedBy = user.username;
+                    setLikeCount(result)
+
+                    await addLike({ variables: { postId }})
+                }
+            }
+        }         
+        catch (error) {
+            console.error('Error liking this post', error);
+        }
+    };
+
+    const unlikePost = async () => {
+        try {
+            if (Auth.loggedIn()) {
+                const { data: post } = await client.query({ query: GET_POST_BY_ID, variables: { _id: post._id} });
+                    const postId = post._id;
+                if (postId) {
+
+                    const result = async () => {
+                        const newCount = likes.map(item =>{
+                            if (item._id == result._id){
+                                return result
+                            } else {
+                                return item
+                            }
+                        })
+                        setLikeCount(newCount)
+                    }
+                    // const likedBy = user.username;
+                    
+
+                    await removeLike({ variables: { likeId }})
+                }
+            }
+        }         
+        catch (error) {
+            console.error('Error unliking this post', error);
+        }
+    };
+
+
+
+console.log(data);
     return (
         <div className='p-4'>
             <div className='flex flex-col items-center p-4 bg-slate-800 bg-opacity-50 rounded-full'>
@@ -164,18 +229,29 @@ const HomePage = () => {
                                             <span className='ml-2'>{post.comments.length}</span>
                                             {post.comments && (<button className='ml-1'><TfiComment /></button>)}
 
-
-                                            <span className='likes ml-5'>0 likes</span>
-                                            <button className='likes ml-1'><VscHeart /></button>
-
-
-
-                                        </div>
-
-
-
-
-
+                                                   
+                                                    <span className='likes ml-5'>{post.likes.length} likes</span>
+                                                    {(Auth.loggedIn() && Auth.getProfile().data._id)
+                                                        ? <button 
+                                                        onClick={() => {likePost(addLike._id)}} 
+                                                        className='likes ml-1'><VscHeart/>
+                                                    </button>
+                                                        :
+                                                        <button 
+                                                        onClick={() => {unlikePost(item._id)}}
+                                                        className='likes ml-1'><VscHeartFilled/>
+                                                        </button>
+                                                    }
+                              
+                                                 
+                                                 
+                                                 
+                                            </div>
+                                            
+                                      
+                                            
+                                     
+                                    
                                     </div>
 
 
