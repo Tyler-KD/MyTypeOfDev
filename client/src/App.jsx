@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 
 import './index.css'
 
@@ -41,10 +41,10 @@ const client = new ApolloClient({
 
 function App() {
 
-  useEffect(() => {
-    const socket = io("http://localhost:4000");
-    console.log(socket)
-  }, [])
+  // useEffect(() => {
+  //   const socket = io("http://localhost:4000");
+  //   console.log(socket)
+  // }, [])
   return (
 
     // ApolloProvider wraps the application and places the client on the context, which allows access to it from anywhere in the component tree.

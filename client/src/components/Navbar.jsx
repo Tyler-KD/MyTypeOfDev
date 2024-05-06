@@ -18,15 +18,15 @@ const Navbar = ({socket, user}) => {
         Auth.logout(); // log the user out
     };
 
-    const handleNotifications = (type) => {
-        Socket.emit("sendNotification", {
-            senderName:user,
-            receiverName: post.username,
-            type,
-        });
-    };
+    // const handleNotifications = (type) => {
+    //     Socket.emit("sendNotification", {
+    //         senderName:user,
+    //         receiverName: post.username,
+    //         type,
+    //     });
+    // };
 
-    const [notifications, setNotifications] = useState([])
+    // const [notifications, setNotifications] = useState([])
 
     // useEffect(()=>{
     //     socket.on("getNotification", (data)=>{
@@ -34,25 +34,25 @@ const Navbar = ({socket, user}) => {
     //     })
     // },[socket]);
 
-    const displayNotification = ({ senderName, type }) => {
-        let action;
+    // const displayNotification = ({ senderName, type }) => {
+    //     let action;
     
-        if (type === 1) {
-          action = "liked";
-        } else if (type === 2) {
-          action = "commented";
-        } 
-        return (
-          <span className="notification">{`${senderName} ${action} your post.`}</span>
-        );
-      };
+    //     if (type === 1) {
+    //       action = "liked";
+    //     } else if (type === 2) {
+    //       action = "commented";
+    //     } 
+    //     return (
+    //       <span className="notification">{`${senderName} ${action} your post.`}</span>
+    //     );
+    //   };
 
-      const handleRead = () => {
-        setNotifications([]);
-        setOpen(false);
-      };
+    //   const handleRead = () => {
+    //     setNotifications([]);
+    //     setOpen(false);
+    //   };
 
-    console.log(notifications)
+    // console.log(notifications)
 
     return (
         <div className='flex flex-col justify-between'>
