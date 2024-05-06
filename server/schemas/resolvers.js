@@ -160,6 +160,24 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+
+    // Removes an application by its id
+    removeApplication: async(parent, { applicationId }, context) => {
+      console.log(context.user)
+      console.log(applicationId)
+      if (context.user) {
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              applications: {_id: applicationId}
+            }
+          },
+          { new: true }
+        )
+      }
+      throw AuthenticationError;
+    }
   },
 };
 

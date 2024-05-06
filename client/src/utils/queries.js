@@ -15,6 +15,7 @@ export const GET_ME = gql`
       about
       image
       applications {
+        _id
         title
         appURL
         appImageURL

@@ -13,6 +13,7 @@ const typeDefs = `
   }
 
   type Application {
+    _id: ID
     title: String
     appURL: String
     appImageURL: String
@@ -63,6 +64,7 @@ const typeDefs = `
     removePost(postId: ID!): Post
     removeComment(postId: ID!, commentId: ID!): Post
     updateProfile(about: String!, image: String!, firstName: String!, lastName: String!, applicationData: ApplicationInput): User
+    removeApplication(applicationId: ID!): User
   }
 `;
 
