@@ -44,17 +44,17 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [user, setUser] = useState("");
-  const [socket, setSocket] = useState(null);
+  // const [username, setUsername] = useState("");
+  // const [user, setUser] = useState("");
+  // const [socket, setSocket] = useState(null);
   
-  useEffect(()=>{
-    setSocket(io("http://localhost:4000"));
-  },[])
+  // useEffect(()=>{
+  //   setSocket(io("http://localhost:4000"));
+  // },[])
 
-  useEffect(()=>{
-    socket?.emit("newUser", user)
-  }, [socket, user])
+  // useEffect(()=>{
+  //   socket?.emit("newUser", user)
+  // }, [socket, user])
 
 
   
