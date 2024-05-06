@@ -42,7 +42,7 @@ const CheckoutForm = () => {
 const stripePromise = loadStripe("pk_test_51PCUAkHBeNaBY6kmxzPxOwO3wyLshViLwsLxxVwxct9feUeQYupYnDp3MuQqmsmGEaRPDCBYVPtE24rrJaNMLhJ500FjwIkslr");
     // The Donations component returns an Elements provider from @stripe/react-stripe-js, which wraps the CheckoutForm component.
     // This provider component makes Stripe.js and Elements available to all components in the app.
-    const Donations = () => {
+    const Creators = () => {
         return (
             <Elements stripe ={stripePromise} options={{ mode: 'setup', currency: 'usd' }}>
                 <CheckoutForm />
@@ -50,4 +50,4 @@ const stripePromise = loadStripe("pk_test_51PCUAkHBeNaBY6kmxzPxOwO3wyLshViLwsLxx
         );
     };
 
-export default Donations;
+export default Creators;
