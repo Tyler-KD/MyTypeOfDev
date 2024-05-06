@@ -56,7 +56,7 @@ Clone the repository, open MyTypeOfDev in Visual Studio Code and in the terminal
 
 
 
-![Alt Text](/MyTypeOfDev/client/src/assets/README%20Screenshot.png)
+![Alt Text](./client/src/assets/README%20Screenshot.png)
 
 
 #### Project License: MIT <a name="licenseSection"></a> 
