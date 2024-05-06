@@ -71,8 +71,8 @@ const LoginForm = (props) => {
                             className="mt-1 block w-full rounded-md text-black border-4 border-gray-600 shadow-2xl" />
                         </div>
 
-                        <button type="submit" className="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600
-                        hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:scale-125 ease-in-out">
+                        <button type="submit" className="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-zinc-600
+                        hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500 hover:scale-125 ease-in-out">
                             Login
                         </button>
                         </div>
