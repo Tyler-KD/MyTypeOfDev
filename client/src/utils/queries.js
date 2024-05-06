@@ -41,6 +41,7 @@ query posts {
     createdAt
     image
     likes {
+      _id
       likeCount
       likedBy
     }
@@ -63,6 +64,7 @@ export const GET_POST_BY_ID = gql`
       image
       createdAt
       likes {
+        _id
         likeCount
         likedBy
       }

@@ -31,7 +31,7 @@ const postSchema = new Schema({
         required: true,
       },
       likedBy: {
-        type: ObjectId, ref:"User",
+        type: String,
         required: true,
       },
     },

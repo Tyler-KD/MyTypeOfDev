@@ -71,6 +71,7 @@ export const ADD_POST = gql`
       createdAt
       image
       likes {
+        _id
         likeCount
         likedBy
       }

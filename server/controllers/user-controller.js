@@ -119,7 +119,10 @@ module.exports = {
                     { _id: postId },
                     {
                         $addToSet: {
-                            likes: { likeCount, likedBy },
+                            likes: { 
+                                likeCount, 
+                                likedBy: user.username 
+                            },
                         }
                     },
                     {
@@ -147,7 +150,7 @@ module.exports = {
                             likes: { 
                                 _id: likeId,
                                 likeCount, 
-                                likedBy,
+                                likedBy: user.username,
                             },
                         },
                     },
