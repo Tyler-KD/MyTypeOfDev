@@ -1,7 +1,10 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from '../utils/queries';
+import { REMOVE_APPLICATION } from "../utils/mutations";
 import { Link } from 'react-router-dom';
 import { useState } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { BsTrash3 } from "react-icons/bs"
 
 // ProfilePage displays the user's profile information
 const ProfilePage = () => {
@@ -10,6 +13,8 @@ const ProfilePage = () => {
         // fetchPolicy: "network-only" tells the Apollo Client to always fetch the latest data from the server and skip the cache without refreshing the page.
         fetchPolicy: "network-only"
     });
+    // REMOVE_APPLICATION mutation removes the current user's application by its applicationId.
+    const [RemoveApplication] = useMutation(REMOVE_APPLICATION, {refetchQueries: [GET_ME, "me"] })
     // useState hook is used to create a state variable codeView which is used to toggle between normal text view and code view for the posts.
     const [codeView, setCodeView] = useState(false);
     // If the GET_ME query is still loading, a loading message is displayed.
@@ -35,6 +40,12 @@ const ProfilePage = () => {
                     <h2 className="text-xl font-bold mb-2">Applications:</h2>
                     {applications && applications.map((application, index) => (
                         <div key={index} className="mb-2">
+                            <BsTrash3 className="cursor-pointer" onClick={async () => {
+                                alert(application._id)
+                                await RemoveApplication({
+                                    variables: {applicationId: application._id}
+                                })
+                            }} />
                             <p><strong></strong> {application.title}</p>
                             <p><strong></strong> <a href={application.appURL} target="_blank" rel="noopener noreferrer"><img className=" hover:opacity-70" src={application.appImageURL} alt="Application" /></a></p>
                         </div>

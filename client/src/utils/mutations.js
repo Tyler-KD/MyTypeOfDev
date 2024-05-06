@@ -140,3 +140,18 @@ mutation removeComment($postId: ID!, $commentId: ID!) {
   }
 }
 `;
+
+// Remove an application by its id.
+// applicationId as input parameter.
+export const REMOVE_APPLICATION = gql`
+mutation RemoveApplication($applicationId: ID!) {
+  removeApplication(applicationId: $applicationId) {
+    applications {
+      _id
+      appImageURL
+      appURL
+      title
+    }
+  }
+}
+`;
