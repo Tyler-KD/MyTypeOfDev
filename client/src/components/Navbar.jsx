@@ -80,7 +80,7 @@ const Navbar = ({socket, user}) => {
                     ) : (
                         // If user is logged out, only show the devHub landingpage link
                         <h1 className='text-white text-xl lg:text-2xl transition-all duration-200 hover:scale-110 animate-slidein1'>
-                            <NavLink to={Notifications} className='font-bold'>
+                            <NavLink to='/' className='font-bold'>
                                 <img className='h-auto w-[200px]' src={image1} />
                             </NavLink>
                         </h1>
