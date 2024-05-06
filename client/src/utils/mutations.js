@@ -80,6 +80,11 @@ export const ADD_POST = gql`
       postAuthor
       createdAt
       image
+      likes {
+        _id
+        likeCount
+        likedBy
+      }
       comments {
         _id
         commentText
@@ -88,6 +93,36 @@ export const ADD_POST = gql`
       }
     }
   }
+`;
+
+export const ADD_LIKE = gql`
+mutation addLike($postId: ID!, $likeCount: Int!) {
+  addLike(postId: $postId, likeCount: $likeCount) {
+    _id
+    likeCount
+    likedBy
+    likes {
+      _id
+      likeCount
+      likedBy
+    }
+  }
+}
+`;
+
+export const REMOVE_LIKE = gql`
+mutation removeLike($postId: ID!, $likeId: ID!) {
+  removeLike(postId: $postId, likeId: $likeId) {
+    _id
+    likeCount
+    likedBy
+    likes {
+      _id
+      likeCount
+      likedBy
+    }
+  }
+}
 `;
 
 // Add a comment to an existing post.

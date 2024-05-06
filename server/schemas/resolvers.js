@@ -105,6 +105,46 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
+    addLike: async (parent, { postId, likeCount }, context) => {
+      if (context.user) {
+        return Post.findOneAndUpdate(
+          { _id: postId },
+          {
+            $addToSet: {
+              likes: { 
+                likeCount, 
+                likedBy: context.user.username 
+              },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw AuthenticationError;
+    },
+
+    removeLike: async (parent, { postId, likeId }, context) => {      
+      if (context.user) {
+        return Post.findOneAndUpdate(
+          { _id: postId },
+          {
+            $pull: {
+              likes: {
+                _id: likeId,
+                likeCount,
+                likedBy: context.user.username,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw AuthenticationError;
+    },
+
     // Adds a new comment to a post.
     addComment: async (parent, { postId, commentText }, context) => {
       if (context.user) {
