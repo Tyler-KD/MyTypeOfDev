@@ -7,6 +7,7 @@ import { VscHeart } from "react-icons/vsc";
 import { VscHeartFilled } from "react-icons/vsc";
 import Auth from '../utils/auth.js';
 import { Link } from 'react-router-dom';
+import "../index.css"
 
 
 // HomePage allows users to add new posts and view all existing posts along with their comments.
@@ -75,7 +76,7 @@ const HomePage = () => {
             if (Auth.loggedIn()) {
                 const { data: userData } = await client.query({ query: GET_ME });
                 const user = userData.me;
-                console.log(user);
+                // console.log(user);
 
                 if (user && user.username) {
                     const postAuthor = user.username;
@@ -109,12 +110,12 @@ const HomePage = () => {
         try {
             if (Auth.loggedIn()) {
                 const { data: user } = Auth.getProfile();
-                console.log(user.username);
+                // console.log(user.username);
 
                 if ( user ) {
                     const postId = await Promise.all(data.posts.map(async post => {
                         const postData = await client.query({ query: GET_POST_BY_ID, variables: { postId: post._id} });
-                    console.log(post._id);
+                    // console.log(post._id);
                     
                     }))
 
@@ -175,12 +176,12 @@ const HomePage = () => {
 
 
 
-console.log(data);
+// console.log(data);
 
     return (
-        <div className='p-4'>
-            <div className='flex flex-col items-center p-4 bg-slate-800 bg-opacity-50 rounded-full'>
-                <h1 className='text-6xl bg-orange-500 bg-opacity-80 w-1/3 text-center font-serif rounded-t-xl animate-dropin1 '>The dHub Feed</h1>
+        <div className=''>
+            <div className='flex flex-col items-center p-4 '>
+                
 
                 <div className='flex flex-row w-full h-full ml-28 justify-center'>
 
@@ -190,52 +191,61 @@ console.log(data);
                         placeholder="Write your post here..."
                         className="w-1/2 p-2 mx-5 border-4 border-black shadow-2xl" />
 
-                    <div className='flex flex-col w-1/12'>
-                        <button onClick={handleAddPost} className='transition ease-in-out delay-150 px-4 py-2 mt-4 bg-indigo-600 text-xl text-white rounded-md hover:scale-125 hover:bg-indigo-500 duration-300'>
+                    <div className='flex flex-col   w-auto p-4'>
+                        <button onClick={handleAddPost} className=' items-center p-2 bg-gray-600 text-xl text-white rounded-sm hover:bg-gray-600 hover:shadow-xl hover:shadow-amber-600/60 duration-300'>
                             Add Post
                         </button>
                         {/* The setCodeView function is used to toggle the codeView state when the "Code view" button is clicked. */}
-                        <button onClick={() => setCodeView(!codeView)} className='transition ease-in-out delay-150 px-4 py-2 mt-4 
-                        bg-green-600 text-xl text-white rounded-md hover:scale-125 hover:bg-green-500 duration-300'>
+                        <button onClick={() => setCodeView(!codeView)} className='items-center p-2 mt-4 
+                        bg-gray-600 text-xl text-white rounded-sm hover:bg-gray-600 hover:shadow-xl hover:shadow-amber-600/60 duration-300'>
                             Code View
                         </button>
                     </div>
-
+                   
                 </div>
+                
             </div>
 
 
 
 
 
-            <div className='flex flex-col items-center justify-center'>
+            <div className='flex flex-col items-center mx-auto max-w-max'>
                 {posts.slice().reverse().map((post) => {
                     return (
 
-                        <div key={post._id} className='w-1/2 flex-col items-center'>
+                        <div key={post._id} className='w-1/2 '>
 
 
-                            <div className='flex flex-col  w-full mt-12 p-2 border-2 border-gray-900 rounded-md'>
-                                <div key={post._id} to={`/post/${post._id}`} className='flex flex-col items-center'>
+                            <div className='w-full mt-8 '>
+                                <div key={post._id} to={`/post/${post._id}`} className=' items-center'>
 
-                                    <div className='flex flex-col w-full border-2 border-gray-900 rounded-md bg-orange-500 bg-opacity-90'>
+                                    <div className=' w-full border-2 border-gray-900 rounded-md bg-orange-400 ' id= "dHub">
 
                                         {/* Check if the logged-in user is the author of the post */}
                                         {/* If logged-in user is the author of the post, direct to /profile */}
                                         {/* Otherwise, user is directed to /profile/${post._id} */}
-                                        <Link to={Auth.getProfile().data.username === post.postAuthor ? `/profile` : `/profile/${post._id}`}>
-                                            <div className='flex'>{post.image && <img className="rounded-l-lg w-16 md:w-22 lg:w-30" src={post.image} alt="Post" />} </div>
-                                        </Link>
-
-                                        <div><p className='text-black font-bold text-3xl ml-2'>{post.postAuthor}<span className='text-black text-xl'>:</span></p></div>
-
+                                        <div className="flex flex-row">
+                                            <Link to={Auth.getProfile().data.username === post.postAuthor ? `/profile` : `/profile/${post._id}`}>  
+                                            
+                                            <div>{post.image && <img className="w-16 h-16 rounded-full ml-2 mt-1 " src={post.image} alt="Post" />} </div>
+                                            
+                                            </Link>
+                                        
+                                        <div>
+                                            <Link to={Auth.getProfile().data.username === post.postAuthor ? `/profile` : `/profile/${post._id}`}>
+                                            {post.postAuthor && <p className='text-black font-bold text-3xl p-3'>{post.postAuthor}<span className='text-black text-xl'>:</span></p>}
+                                            </Link>
+                                        </div>
+                                        </div>
+                                        <div className='flex flex-col'>
                                         <Link to={`/post/${post._id}`}>
                                             <div className='flex'>
                                                 {/* The codeView state variable is used to conditionally render the postTexts in a <pre> tag (for code view) or <h2> tag (for normal view). */}
                                                 {codeView ? <pre className='transition-all duration-200 hover:scale-100 scale-95 text-2xl text-wrap whitespace-pre-wrap ml-2 mt-3'>{post.postText}</pre> : <h2 className='transition-all duration-200 hover:scale-100 scale-95 text-2xl ml-2 mt-3'>{post.postText}</h2>}
-                                            </div>
+                                        </div>
                                         </Link>
-
+                                        </div>
                                         <p className='mt-5 mx-2 text-white text-end'>Posted on, {post.createdAt}</p>
 
                                         <div className='flex flex-row text-xl '>

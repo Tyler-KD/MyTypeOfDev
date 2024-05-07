@@ -118,7 +118,7 @@ const SinglePostPage = () => {
     // The handleRemoveComment function is called when the user clicks the "Remove Comment" button.
     const handleRemoveComment = async (commentId) => {
         try {
-            console.log(commentId);
+            // console.log(commentId);
             await removeComment({ variables: { postId, commentId } });
         } catch (error) {
             console.error('Error removing comment:', error);
@@ -137,8 +137,8 @@ const SinglePostPage = () => {
     // If the user is logged in and is the author of the post or a comment, they see a "Remove Post" or "Remove Comment" button next to the post or comment.
     // If the showCommentForm state variable is true, a comment form is displayed.
     return (
-        <div className="p-4 flex flex-col items-center">
-            <div className="flex flex-col w-1/2 bg-orange-500 bg-opacity-90 text-center items-center pb-4 font-serif rounded-xl">
+        <div className="p-4 flex flex-col min-h-screen items-center">
+            <div className="flex flex-col w-1/2 bg-orange-400 bg-opacity-90 text-center items-center pb-4 font-serif rounded-xl">
                 <div className="flex items-center mb-4">
                     <img src={userData?.user?.image} alt="Post" className="w-16 h-16 rounded-full mr-4" />
                     <div>

@@ -2,8 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-body { background-image: url('/src/assets/BG/Blossom2.jpg');
-        background-size: cover;   }
+/* body { background-image: url('/src/assets/BG/Blossom2.jpg');
+        background-size: cover;   } */
+
+
+body { background-color: rgb(41, 41, 41);
+    background-size: cover;   
+}
+
+#dHub {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#creatorTitle {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 95px;
+    color: #ffffff;
+}
+
+#creators {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 55px;
+    color: #ffffff;
+}
 
 .animated-background {
     background: linear-gradient(
@@ -171,8 +192,7 @@ body { background-image: url('/src/assets/BG/Blossom2.jpg');
         rgb(29, 10, 73)
         );
     
-
-    background-size: 300% 300%;
+        background-size: 300% 300%;
 
 }
 

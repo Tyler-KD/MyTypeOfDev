@@ -49,17 +49,17 @@ const CreateProfile = () => {
     // Event handlers defined to update the state variables when the user types into the form fields.
     const handleAboutChange = (e) => {
         setAbout(e.target.value);
-        console.log(e.target.value)
+        // console.log(e.target.value)
     };
 
     const handleFirstNameChange = (e) => {
         setFirstName(e.target.value);
-        console.log(e.target.value)
+        // console.log(e.target.value)
     };
 
     const handleLastNameChange = (e) => {
         setLastName(e.target.value);
-        console.log(e.target.value)
+        // console.log(e.target.value)
     };
 
     const handleImageUpload = (e) => {
@@ -101,8 +101,8 @@ const CreateProfile = () => {
             };
 
             const response = await updateProfile({ variables });
-            console.log(response);
-            console.log({ variables })
+            // console.log(response);
+            // console.log({ variables })
             setisSubmitted(true);
         } catch (err) {
             console.error(err);
